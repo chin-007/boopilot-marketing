@@ -229,7 +229,7 @@ function HeroVideo() {
 export default function Home() {
   // Auth state handled by redirect to app.boopilot.com
   const isAuthenticated = false;
-  const user = null;
+  const user: any = null; // FIXED TYPESCRIPT ERROR HERE
   const loading = false;
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
