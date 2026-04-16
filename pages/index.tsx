@@ -235,14 +235,26 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
 
-  // ── IP-based currency detection (reuses billing.getCountry endpoint) ──────
+  // ── IP-based currency detection (Safe Fetch Implementation) ──────
   // Default to null (unknown) to avoid hydration mismatch; resolved client-side
   const [currency, setCurrency] = useState<'INR' | 'USD' | null>(null);
+
   useEffect(() => {
-    if (geoData) {
-      setCurrency(geoData.currency as 'INR' | 'USD');
-    }
-  }, [geoData]);
+    // Safely fetch user location without breaking Next.js build
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.country_code === 'IN') {
+          setCurrency('INR');
+        } else {
+          setCurrency('USD');
+        }
+      })
+      .catch(() => {
+        // If ad-blocker blocks the check, safely default to USD
+        setCurrency('USD'); 
+      });
+  }, []);
   
   // Resolved currency — default to INR while detecting (avoids layout shift for majority IN users)
   const activeCurrency = currency ?? 'INR';
