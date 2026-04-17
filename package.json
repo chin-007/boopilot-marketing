@@ -9,17 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/speed-insights": "latest",
     "next": "15.1.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "lucide-react": "^0.469.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.6.0"
-    "dependencies": {
-    "@vercel/speed-insights": "latest",
-    "next": "...",
-    "react": "...",
-    // ... your other packages
   },
   "devDependencies": {
     "@types/node": "^22",
