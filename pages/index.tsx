@@ -429,16 +429,30 @@ export default function Home() {
               {/* Subtle Breathing Ambient Glow */}
               <div className="absolute -inset-1 rounded-full bg-indigo-500/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse-glow pointer-events-none"></div>
 
+              {/* Inline Style specifically for the flawless Shimmer */}
+              <style>{`
+                @keyframes btn-sheen {
+                  0% { background-position: 250% 0; }
+                  100% { background-position: -250% 0; }
+                }
+              `}</style>
+
               {/* TITAN BUTTON BODY */}
               <button className="relative w-full sm:w-auto px-10 md:px-14 h-16 md:h-18 rounded-full font-black text-white text-lg md:text-xl flex items-center justify-center gap-3 overflow-hidden transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-1 shadow-[0_0_20px_rgba(79,70,229,0.2)] group-hover:shadow-[0_20px_40px_-10px_rgba(79,70,229,0.5)]">
                 
-                {/* Dynamic Gradient Border (ALWAYS VISIBLE NOW) */}
-                <div className="absolute inset-0 rounded-full p-[1.5px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                {/* Dynamic Liquid Gradient Border (Always visible + flowing) */}
+                <div className="absolute inset-0 rounded-full p-[1.5px] bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-cyan-500 animate-gradient-x">
                   <div className="w-full h-full rounded-full bg-slate-950 transition-colors duration-300 group-hover:bg-slate-900"></div>
                 </div>
 
-                {/* Fast Shimmer Effect (ALWAYS ANIMATING/LOOPING) */}
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[marquee_2s_ease-in-out_infinite] z-1" />
+                {/* Internal Void Background */}
+                <div className="absolute inset-[1.5px] rounded-full bg-slate-950 z-0"></div>
+
+                {/* The Flawless "Linear.app" Shimmer Effect */}
+                <div 
+                  className="absolute inset-[1.5px] rounded-full z-1 pointer-events-none bg-[linear-gradient(110deg,transparent,45%,rgba(255,255,255,0.2),55%,transparent)] bg-[length:250%_100%]"
+                  style={{ animation: 'btn-sheen 3s infinite linear' }}
+                />
 
                 {/* Text and Icon */}
                 <span className="relative z-10 flex items-center gap-3 tracking-tight selection:bg-none selection:text-white">
@@ -446,8 +460,8 @@ export default function Home() {
                   <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 transform group-hover:translate-x-2" />
                 </span>
 
-                {/* Subtle Inner Sheen */}
-                <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent z-1"></div>
+                {/* Subtle Inner Highlight (Top Edge) */}
+                <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent z-1"></div>
               </button>
             </div>
             
