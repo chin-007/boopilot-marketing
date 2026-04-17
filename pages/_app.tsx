@@ -24,10 +24,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* 1. Global Meta Pixel Code */}
+      {/* 1. Global Meta Pixel Code - LAZY LOADED FOR ZERO SPEED IMPACT */}
       <Script
         id="meta-pixel"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
@@ -44,10 +44,10 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       />
       
-      {/* 2. Microsoft Clarity Code */}
+      {/* 2. Microsoft Clarity Code - LAZY LOADED FOR ZERO SPEED IMPACT */}
       <Script
         id="microsoft-clarity"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             (function(c,l,a,r,i,t,y){
