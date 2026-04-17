@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    // This silently fires a PageView every time the user navigates your site
+    // Silently fires a Meta PageView every time the user navigates your site
     const handleRouteChange = () => {
       if (typeof window !== 'undefined' && (window as any).fbq) {
         (window as any).fbq('track', 'PageView');
@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* Global Meta Pixel Code */}
+      {/* 1. Global Meta Pixel Code */}
       <Script
         id="meta-pixel"
         strategy="afterInteractive"
@@ -43,9 +43,26 @@ export default function App({ Component, pageProps }: AppProps) {
           `,
         }}
       />
+      
+      {/* 2. Microsoft Clarity Code */}
+      <Script
+        id="microsoft-clarity"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "w9mttvte26");
+          `,
+        }}
+      />
+
+      {/* 3. Your Main App */}
       <Component {...pageProps} />
       
-      {/* Vercel Metrics & Analytics */}
+      {/* 4. Vercel Metrics & Analytics */}
       <SpeedInsights />
       <Analytics />
     </>
