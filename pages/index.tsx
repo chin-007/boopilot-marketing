@@ -408,7 +408,7 @@ export default function Home() {
           
           {/* Top Social Proof Badge */}
           <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-8 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg animate-fade-up">
-            <ShieldCheck className="w-4 h-4 mr-2 inline-block -mt-0.5" /> Trusted by 500+ business owners
+            <ShieldCheck className="w-4 h-4 mr-2 inline-block -mt-0.5" /> Loved by Modern business owners
           </Badge>
           
           {/* Aggressive Animated Headline */}
@@ -430,18 +430,15 @@ export default function Home() {
               <div className="absolute -inset-1 rounded-full bg-indigo-500/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse-glow pointer-events-none"></div>
 
               {/* TITAN BUTTON BODY */}
-              <button className="relative w-full sm:w-auto px-10 md:px-14 h-16 md:h-18 rounded-full font-black text-white text-lg md:text-xl flex items-center justify-center gap-3 overflow-hidden transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-1 bg-slate-950 border border-slate-800 group-hover:border-transparent shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] group-hover:shadow-[0_20px_40px_-10px_rgba(79,70,229,0.3)]">
+              <button className="relative w-full sm:w-auto px-10 md:px-14 h-16 md:h-18 rounded-full font-black text-white text-lg md:text-xl flex items-center justify-center gap-3 overflow-hidden transition-all duration-300 transform group-hover:scale-[1.03] group-hover:-translate-y-1 shadow-[0_0_20px_rgba(79,70,229,0.2)] group-hover:shadow-[0_20px_40px_-10px_rgba(79,70,229,0.5)]">
                 
-                {/* Dynamic Gradient Border */}
-                <div className="absolute inset-0 rounded-full p-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                  <div className="w-full h-full rounded-full bg-slate-950"></div>
+                {/* Dynamic Gradient Border (ALWAYS VISIBLE NOW) */}
+                <div className="absolute inset-0 rounded-full p-[1.5px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                  <div className="w-full h-full rounded-full bg-slate-950 transition-colors duration-300 group-hover:bg-slate-900"></div>
                 </div>
 
-                {/* Internal Void Background */}
-                <div className="absolute inset-[1.5px] rounded-full bg-slate-950 z-0"></div>
-
-                {/* Fast Shimmer Effect */}
-                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[marquee_1.2s_ease-in-out_infinite] z-1" />
+                {/* Fast Shimmer Effect (ALWAYS ANIMATING/LOOPING) */}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[marquee_2s_ease-in-out_infinite] z-1" />
 
                 {/* Text and Icon */}
                 <span className="relative z-10 flex items-center gap-3 tracking-tight selection:bg-none selection:text-white">
