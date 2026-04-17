@@ -505,7 +505,7 @@ export default function Home() {
 
                   <div className="flex items-center gap-1.5 md:gap-3 opacity-90 hover:opacity-100 transition-all duration-300 cursor-default">
                     <InstagramLogo className="h-4 md:h-6 w-auto text-[#E4405F]" />
-                    <span className="text-[10px] md:text-xs font-bold text-slate-300 uppercase tracking-widest">API Access</span>
+                    <span className="text-[10px] md:text-xs font-bold text-slate-300 uppercase tracking-widest">Approved</span>
                   </div>
                 </div>
               ))}
