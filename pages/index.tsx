@@ -215,10 +215,10 @@ function HeroVideo() {
   return (
     <video
       ref={videoRef}
+      autoPlay
       loop
       muted
       playsInline
-      controls
       className="w-full h-full object-cover scale-[1.01]"
       poster={HERO_POSTER_URL}
       preload="none"
