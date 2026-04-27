@@ -550,8 +550,7 @@ function QuantumComparisonChamber() {
                 <span className="text-7xl md:text-8xl font-black text-red-500 tracking-tighter drop-shadow-[0_0_20px_rgba(239,68,68,0.4)]">$800</span>
                 <span className="text-slate-500 font-bold text-lg md:text-xl ml-2">/mo</span>
               </div>
-              
-              <ul className="space-y-6 text-base md:text-lg font-bold text-slate-400 mt-auto">
+                 <ul className="space-y-6 text-base md:text-lg font-bold text-slate-400 mt-auto">
                 <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>6+ hours every week creating content that gets forgotten by tomorrow</span></li>
                 <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Paying an agency $800/month and having zero idea what they actually do</span></li>
                 <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Leads sitting in DMs going cold while you're busy running your business</span></li>
@@ -586,8 +585,7 @@ function QuantumComparisonChamber() {
                 <span className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 tracking-tighter drop-shadow-[0_0_30px_rgba(16,185,129,0.3)]">$39</span>
                 <span className="text-slate-500 font-bold text-lg md:text-xl ml-2">/mo</span>
               </div>
-              
-              <ul className="space-y-6 text-base md:text-lg font-bold text-slate-300 mt-auto">
+                            <ul className="space-y-6 text-base md:text-lg font-bold text-slate-300 mt-auto">
                 <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>30 days of content — AI visuals, captions, hashtags — created and scheduled in under 3 minutes</span></li>
                 <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Every DM and comment gets an instant intelligent reply and drops straight into your CRM
 </span></li>
