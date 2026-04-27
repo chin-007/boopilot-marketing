@@ -499,25 +499,25 @@ function SiliconValleyValueEngine() {
 // ─── THE SILICON VALLEY "QUANTUM CHAMBER" COMPARISON ───
 function QuantumComparisonChamber() {
   return (
-    <section id="comparison" className="py-20 md:py-32 px-4 md:px-6 bg-[#02040a] relative z-10 border-y border-white/5 overflow-hidden">
-      {/* Subtle grid background for the whole section */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+    <section id="comparison" className="py-20 md:py-32 px-4 md:px-6 bg-[#fafafa] relative z-10 border-y border-slate-200 overflow-hidden">
+      {/* Subtle grid background for the light section */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
       <div className="max-w-[1200px] mx-auto relative z-10">
         <div className="text-center mb-16 md:mb-24">
-          <Badge className="bg-white/5 text-slate-300 border border-white/10 backdrop-blur-md px-4 py-1.5 text-[10px] md:text-xs font-black mb-6 rounded-full uppercase tracking-widest shadow-lg">
+          <Badge className="bg-red-50 text-red-600 border border-red-100 px-4 py-1.5 text-[10px] md:text-xs font-black mb-6 rounded-full uppercase tracking-widest shadow-sm">
             The Unfair Advantage
           </Badge>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-6 tracking-tight leading-[1.1]">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1]">
             Stop setting your <br className="hidden md:block"/><span className="text-gradient-danger">cash on fire.</span>
           </h2>
-          <p className="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto px-2">
+          <p className="text-lg md:text-xl text-slate-500 font-medium max-w-2xl mx-auto px-2">
             The math is simple. Replace your slow, expensive human agency with a relentless AI autonomous engine.
           </p>
         </div>
 
-        {/* The Quantum Chamber */}
-        <div className="relative w-full max-w-6xl mx-auto bg-[#050505] rounded-[2rem] md:rounded-[3rem] border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] flex flex-col md:flex-row overflow-hidden group">
+        {/* The Quantum Chamber (REMAINS DARK AND POWERFUL) */}
+        <div className="relative w-full max-w-6xl mx-auto bg-[#050505] rounded-[2rem] md:rounded-[3rem] border border-slate-800 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] flex flex-col md:flex-row overflow-hidden group">
           
           {/* Central VS Orb & Divider */}
           <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent z-20"></div>
