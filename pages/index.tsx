@@ -989,7 +989,7 @@ export default function Home() {
 
             {/* 🔥 THE RELOCATED CTA 🔥 */}
             <div className="col-span-1 md:col-span-12 flex justify-center mt-8 md:mt-12">
-              <HypnoticCTA onClick={() => setLocation('/login?tab=signup')} text="Ignite the Engine" />
+              <HypnoticCTA onClick={() => setLocation('/login?tab=signup')} text="Start 7 Days Free Trail" />
             </div>
 
           </div>
