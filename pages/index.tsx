@@ -509,10 +509,10 @@ function QuantumComparisonChamber() {
             The Unfair Advantage
           </Badge>
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1]">
-            Stop setting your <br className="hidden md:block"/><span className="text-gradient-danger">cash on fire.</span>
+            Boopilot vs <br className="hidden md:block"/><span className="text-gradient-danger">The Old Way.</span>
           </h2>
           <p className="text-lg md:text-xl text-slate-500 font-medium max-w-2xl mx-auto px-2">
-            The math is simple. Replace your slow, expensive human agency with a relentless AI autonomous engine.
+            While you manually post, reply, and chase leads — your competitors are automating everything. Here's what that gap actually costs you.
           </p>
         </div>
 
@@ -544,7 +544,7 @@ function QuantumComparisonChamber() {
                 <Badge className="bg-red-500/10 text-red-400 border border-red-500/20 text-[9px] md:text-[10px] uppercase tracking-widest font-black">The Old Way</Badge>
               </div>
               
-              <h3 className="text-3xl md:text-4xl font-black text-white mb-2">Human Agency</h3>
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-2">THE PAINFUL TRUTH</h3>
               
               <div className="my-8 md:my-10 pb-8 md:pb-10 border-b border-white/10">
                 <span className="text-7xl md:text-8xl font-black text-red-500 tracking-tighter drop-shadow-[0_0_20px_rgba(239,68,68,0.4)]">$800</span>
@@ -552,10 +552,13 @@ function QuantumComparisonChamber() {
               </div>
               
               <ul className="space-y-6 text-base md:text-lg font-bold text-slate-400 mt-auto">
-                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Slow delivery & missed deadlines.</span></li>
-                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Zero transparency on actual ROI.</span></li>
-                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>You still manage approvals manually.</span></li>
-                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Leads lost in chaotic DMs & comments.</span></li>
+                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>6+ hours every week creating content that gets forgotten by tomorrow</span></li>
+                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Paying an agency $800/month and having zero idea what they actually do</span></li>
+                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Leads sitting in DMs going cold while you're busy running your business</span></li>
+                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Tracking leads in a spreadsheet that's already 3 days out of date
+</span></li>
+                <li className="flex items-start gap-4"><XCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5 shadow-[0_0_10px_rgba(239,68,68,0.5)] rounded-full" /> <span>Waking up to 47 unanswered comments and DMs that could have been customers
+</span></li>
               </ul>
             </div>
           </div>
@@ -574,10 +577,10 @@ function QuantumComparisonChamber() {
                 <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-500/20 rounded-2xl flex items-center justify-center border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
                   <CheckCircle2 className="w-6 h-6 md:w-7 md:h-7 text-emerald-400" />
                 </div>
-                <Badge className="bg-emerald-500 text-white border-0 shadow-[0_0_15px_rgba(16,185,129,0.6)] text-[9px] md:text-[10px] uppercase tracking-widest font-black animate-pulse">The Future</Badge>
+                <Badge className="bg-emerald-500 text-white border-0 shadow-[0_0_15px_rgba(16,185,129,0.6)] text-[9px] md:text-[10px] uppercase tracking-widest font-black animate-pulse">Boopilot Cockpit</Badge>
               </div>
               
-              <h3 className="text-3xl md:text-4xl font-black text-white mb-2">Boopilot AI Engine</h3>
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-2">THE NEW REALITY</h3>
               
               <div className="my-8 md:my-10 pb-8 md:pb-10 border-b border-white/10">
                 <span className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 tracking-tighter drop-shadow-[0_0_30px_rgba(16,185,129,0.3)]">$39</span>
@@ -585,10 +588,12 @@ function QuantumComparisonChamber() {
               </div>
               
               <ul className="space-y-6 text-base md:text-lg font-bold text-slate-300 mt-auto">
-                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Instant generation. Zero waiting.</span></li>
-                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Crystal clear ROI & growth dashboard.</span></li>
-                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>30 days of content scheduled in 2 mins.</span></li>
-                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Every comment/DM turned into a lead.</span></li>
+                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>30 days of content — AI visuals, captions, hashtags — created and scheduled in under 3 minutes</span></li>
+                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Every DM and comment gets an instant intelligent reply and drops straight into your CRM
+</span></li>
+                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Your Meta ads created, published, and tracked from one dashboard — no Ads Manager confusion</span></li>
+                <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Google Business reviews auto-replied to, professionally, within seconds of posting</span></li>
+                  <li className="flex items-start gap-4"><Check className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5 bg-emerald-500/20 rounded-full p-1 shadow-[0_0_10px_rgba(16,185,129,0.4)]" /> <span>Every lead gets followed up by WhatsApp, email, and call — tracked in real time</span></li>
               </ul>
             </div>
           </div>
@@ -741,7 +746,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-1.5 md:gap-3 opacity-90 hover:opacity-100 transition-all duration-300 cursor-default">
                     <InstagramLogo className="h-4 md:h-6 w-auto text-[#E4405F]" />
-                    <span className="text-[10px] md:text-xs font-bold text-slate-300 uppercase tracking-widest">API Access</span>
+                    <span className="text-[10px] md:text-xs font-bold text-slate-300 uppercase tracking-widest">Approved</span>
                   </div>
                 </div>
               ))}
