@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import {
   ArrowRight,
@@ -649,12 +648,6 @@ export default function Home() {
   // --- MASSIVE PUBLIC LANDING PAGE ---
   return (
     <div className={`min-h-screen bg-[#fafafa] font-sans selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden text-slate-900 ${!animationsEnabled ? 'no-animations' : ''}`}>
-      <Head>
-        <title>Boopilot | Your Entire Marketing Agency Replaced by AI</title>
-        <meta name="description" content="Stop paying expensive marketing agencies. Boopilot is the all-in-one AI platform to automate content creation, schedule posts, run Meta ads, and capture leads 24/7." />
-        <meta property="og:title" content="Boopilot | Your Entire Marketing Agency Replaced by AI" />
-        <meta property="og:description" content="The ultimate AI growth engine for modern business owners." />
-      </Head>
       <style>{customStyles}</style>
 
       {/* 1. APP-LIKE FLOATING HEADER */}
