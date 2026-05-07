@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import Head from "next/head";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import {
   ArrowRight,
   Check,
@@ -28,14 +29,16 @@ import {
   Clock
 } from "lucide-react";
 
-// --- NOTE: Make sure these components exist in your Vercel repo! ---
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FacebookLogo, InstagramLogo, YouTubeLogo, LinkedInLogo, XLogo } from "@/components/PlatformLogos";
 import { LazyVideo } from "@/components/LazyVideo";
 
-// --- APP URL CONSTANT (Update this to your actual app URL) ---
+// Lazy-loaded Testimonials
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection").then(m => ({ default: m.TestimonialsSection })));
+
+// --- APP URL CONSTANT ---
 const APP_URL = "https://app.boopilot.com";
 
 // --- MASTER STYLES (Silicon Valley Vibe) ---
@@ -228,7 +231,7 @@ const HypnoticCTA = ({ onClick, text = "Start 7 Days Free Trial", className = ""
   </div>
 );
 
-// ─── THE SILICON VALLEY "AHA MOMENT" AI TERMINAL ───
+// ─── THE SILICON VALLEY "AHA MOMENT" AI TERMINAL (V2 HYPER-RESPONSIVE) ───
 function BillionDollarAITerminal() {
   const [step, setStep] = useState(0);
   const [phase, setPhase] = useState<'typing' | 'generating' | 'done' | 'idle'>('idle');
@@ -433,7 +436,6 @@ function QuantumComparisonChamber() {
 
         <div className="relative w-full max-w-6xl mx-auto bg-[#050505] rounded-[2rem] md:rounded-[3rem] border border-slate-800 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] flex flex-col md:flex-row overflow-hidden group">
           
-          {/* Central VS Orb & Divider */}
           <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent z-20"></div>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-[#050505] rounded-full border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(0,0,0,0.9)] z-30 group-hover:scale-110 transition-transform duration-700">
             <div className="absolute inset-[-8px] rounded-full border-t-2 border-r-2 border-indigo-500/50 animate-spin-slow"></div>
@@ -555,6 +557,53 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen bg-[#fafafa] font-sans selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden text-slate-900 ${!animationsEnabled ? 'no-animations' : ''}`}>
+      
+      {/* 🚀 SILICON VALLEY SEO SLEDGEHAMMER 🚀 */}
+      <Head>
+        <title>Boopilot | The AI Marketing Agency for Modern Businesses</title>
+        <meta name="description" content="Automate your content creation, schedule 30 days of posts in 2 minutes, and convert DMs into leads. The ultimate AI engine for founders." />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.boopilot.com/" />
+        <meta property="og:title" content="Boopilot | The AI Marketing Agency" />
+        <meta property="og:description" content="Automate your content creation, schedule posts, and convert DMs into leads. The ultimate AI engine." />
+        <meta property="og:image" content="https://www.boopilot.com/logoBoopilot.png" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://www.boopilot.com/" />
+        <meta property="twitter:title" content="Boopilot | The AI Marketing Agency" />
+        <meta property="twitter:description" content="Automate your content creation, schedule posts, and convert DMs into leads." />
+        <meta property="twitter:image" content="https://www.boopilot.com/logoBoopilot.png" />
+
+        {/* JSON-LD Schema to kill the "Did you mean Copilot" issue */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Boopilot",
+              "operatingSystem": "Web",
+              "applicationCategory": "BusinessApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "39.00",
+                "priceCurrency": "USD"
+              },
+              "description": "Boopilot is an all-in-one AI marketing platform that automates social media scheduling, Meta ads, and CRM lead generation.",
+              "url": "https://www.boopilot.com",
+              "publisher": {
+                "@type": "Organization",
+                "name": "Boopilot Technologies",
+                "url": "https://www.boopilot.com"
+              }
+            })
+          }}
+        />
+      </Head>
+
       <style>{customStyles}</style>
 
       {/* 1. APP-LIKE FLOATING HEADER */}
@@ -1075,7 +1124,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. FAQ SECTION */}
+      {/* 8. FAQ SECTION */}
       <section className="py-16 md:py-24 px-4 md:px-6 relative z-10 bg-slate-50 border-t border-slate-200">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
@@ -1122,7 +1171,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. BOTTOM CTA (DARK MODE SILICON VALLEY FINISH) */}
+      {/* 9. BOTTOM CTA (DARK MODE SILICON VALLEY FINISH) */}
       <section className="py-20 md:py-32 px-4 md:px-6 relative z-10 bg-[#02040a] border-y border-white/5 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15)_0%,transparent_100%)] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
@@ -1145,7 +1194,7 @@ export default function Home() {
         </div>
       </section>
 
-     {/* 9. PREMIUM MEGA FOOTER */}
+     {/* 10. PREMIUM MEGA FOOTER */}
       <footer className="bg-[#fdfdfd] border-t border-slate-200 pt-20 pb-10 px-4 md:px-6 relative z-10">
         <div className="max-w-[1200px] mx-auto relative z-10">
           
