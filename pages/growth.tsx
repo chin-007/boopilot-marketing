@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   ArrowRight,
   CheckCircle2,
@@ -18,7 +18,9 @@ import {
   Users,
   BarChart3,
   TrendingUp,
-  ShieldCheck
+  ShieldCheck,
+  Loader2,
+  X
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
@@ -80,7 +82,6 @@ const customStyles = `
     animation: gradient-x 6s linear infinite;
   }
   
-  /* Neural Pipeline Glow */
   .neural-line {
     position: absolute;
     left: 23px;
@@ -90,6 +91,20 @@ const customStyles = `
     background: linear-gradient(to bottom, rgba(168,85,247,0.1), rgba(6,182,212,0.8), rgba(168,85,247,0.1));
     background-size: 100% 200%;
     animation: gradient-x 3s linear infinite;
+  }
+
+  /* Form Input Styling */
+  .dark-input {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  .dark-input:focus {
+    outline: none;
+    border-color: #a855f7;
+    background: rgba(168,85,247,0.05);
+    box-shadow: 0 0 15px rgba(168,85,247,0.2);
   }
 `;
 
@@ -111,18 +126,42 @@ const HypnoticCTA = ({ onClick, text = "Apply For Managed Access", className = "
 
 export default function GrowthAgency() {
   const [isReady, setIsReady] = useState(false);
+  const [modalState, setModalState] = useState(0); // 0: Hidden, 1: Form, 2: Loading, 3: Calendar
+  const [loadingText, setLoadingText] = useState("Analyzing Brand Profile...");
 
   useEffect(() => {
     setIsReady(true);
   }, []);
 
-  const openCalendly = (e: React.MouseEvent) => {
+  // Handle The Processing Illusion
+  const handleApplicationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (window.Calendly) {
-      window.Calendly.initPopupWidget({ url: 'https://calendly.com/sharmachinmaydigichamp13/30min' });
-    } else {
-      window.open('https://calendly.com/sharmachinmaydigichamp13/30min', '_blank');
-    }
+    setModalState(2); // Start Loading
+    
+    setTimeout(() => setLoadingText("Checking Founder Availability..."), 1200);
+    setTimeout(() => setLoadingText("Application Approved."), 2500);
+    setTimeout(() => {
+      setModalState(3); // Unlock Calendar
+      // Initialize Calendly inline embed once modal switches to state 3
+      if (window.Calendly) {
+        window.Calendly.initInlineWidget({
+          url: 'https://calendly.com/sharmachinmaydigichamp13/30min',
+          parentElement: document.getElementById('calendly-inline-widget'),
+          prefill: {},
+          utm: {}
+        });
+      }
+    }, 3200);
+  };
+
+  const openModal = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setModalState(1);
+    setLoadingText("Analyzing Brand Profile...");
+  };
+
+  const closeModal = () => {
+    setModalState(0);
   };
 
   return (
@@ -134,6 +173,87 @@ export default function GrowthAgency() {
         <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
       </Head>
       <style>{customStyles}</style>
+
+      {/* --- MULTI-STEP APPLICATION MODAL --- */}
+      {modalState > 0 && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="absolute inset-0" onClick={closeModal}></div>
+          <div className="relative w-full max-w-2xl bg-[#0a0a0f] border border-white/10 rounded-[2rem] shadow-[0_0_80px_rgba(168,85,247,0.2)] overflow-hidden flex flex-col max-h-[90vh]">
+            
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5 shrink-0">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="w-6 h-6 text-fuchsia-400" />
+                <span className="font-black text-lg tracking-wide">Strategic Audit Application</span>
+              </div>
+              <button onClick={closeModal} className="text-slate-400 hover:text-white transition"><X className="w-6 h-6" /></button>
+            </div>
+
+            <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
+              {/* STATE 1: The Application Form */}
+              {modalState === 1 && (
+                <form onSubmit={handleApplicationSubmit} className="p-8 space-y-6 animate-in slide-in-from-bottom-8 fade-in duration-500">
+                  <div className="text-center mb-8">
+                    <h3 className="text-2xl font-black text-white mb-2">Request Founder Access</h3>
+                    <p className="text-slate-400 text-sm">We only accept 5 international partners per month. Please confirm your business details to unlock the calendar.</p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Full Name</label>
+                      <input required type="text" className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="John Doe" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Work Email</label>
+                      <input required type="email" className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="john@company.com" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Website or Social Link</label>
+                    <input required type="url" className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="https://..." />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Current Monthly Revenue</label>
+                    <select required className="w-full h-12 rounded-xl dark-input px-4 font-medium appearance-none">
+                      <option value="" disabled selected>Select revenue tier...</option>
+                      <option value="under_10k">Under $10,000 / mo</option>
+                      <option value="10k_50k">$10,000 - $50,000 / mo</option>
+                      <option value="over_50k">$50,000+ / mo</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Biggest Marketing Bottleneck?</label>
+                    <textarea required rows={3} className="w-full rounded-xl dark-input p-4 font-medium resize-none" placeholder="Content takes too long, ads aren't converting, etc..."></textarea>
+                  </div>
+
+                  <button type="submit" className="w-full h-14 rounded-xl bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-cyan-600 text-white font-black text-lg shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all transform hover:-translate-y-1">
+                    Submit Application
+                  </button>
+                </form>
+              )}
+
+              {/* STATE 2: The Processing Illusion */}
+              {modalState === 2 && (
+                <div className="p-20 flex flex-col items-center justify-center text-center animate-in zoom-in duration-300 min-h-[400px]">
+                  <Loader2 className="w-16 h-16 text-fuchsia-400 animate-spin mb-8 drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
+                  <h3 className="text-2xl font-black text-white mb-2">Processing Data</h3>
+                  <p className="text-fuchsia-400 font-bold font-mono tracking-tight animate-pulse h-6">
+                    {loadingText}
+                  </p>
+                </div>
+              )}
+
+              {/* STATE 3: The Restricted Calendar Unlocked */}
+              <div className={`w-full min-h-[600px] bg-white transition-opacity duration-700 ${modalState === 3 ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
+                <div id="calendly-inline-widget" className="w-full h-[650px]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* SEC 0: PREMIUM #FDFDFD NAVBAR (Light Theme Contrast) */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FDFDFD] shadow-[0_10px_40px_rgba(0,0,0,0.3)] border-b border-slate-200">
@@ -152,7 +272,7 @@ export default function GrowthAgency() {
               <a href="#pipeline" className="hover:text-fuchsia-600 transition">Process</a>
             </div>
             <button 
-              onClick={openCalendly}
+              onClick={openModal}
               className="bg-[#050505] hover:bg-fuchsia-600 text-white font-black text-xs md:text-sm h-11 px-6 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.2)] transition-all transform hover:scale-105 flex items-center gap-2 border border-slate-800"
             >
               <Sparkles className="w-4 h-4"/> Apply for Managed Access
@@ -168,7 +288,7 @@ export default function GrowthAgency() {
           <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[700px] bg-[radial-gradient(ellipse_at_top,#a855f7_0%,#06b6d4_30%,transparent_70%)] opacity-30 animate-pulse-glow"></div>
         </div>
 
-        {/* FLOATING UI WIDGET 1 (Top Left) */}
+        {/* FLOATING UI WIDGET 1 */}
         <div className="hidden md:flex absolute top-32 left-[10%] animate-float-1 glass-card p-4 rounded-2xl items-center gap-4 z-20 border-emerald-500/30">
           <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><TrendingUp className="w-5 h-5 text-emerald-400"/></div>
           <div className="text-left">
@@ -177,7 +297,7 @@ export default function GrowthAgency() {
           </div>
         </div>
 
-        {/* FLOATING UI WIDGET 2 (Bottom Right) */}
+        {/* FLOATING UI WIDGET 2 */}
         <div className="hidden md:flex absolute bottom-32 right-[10%] animate-float-2 glass-card p-4 rounded-2xl items-center gap-4 z-20 border-cyan-500/30">
           <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center"><Users className="w-5 h-5 text-cyan-400"/></div>
           <div className="text-left">
@@ -186,7 +306,7 @@ export default function GrowthAgency() {
           </div>
         </div>
 
-        {/* FLOATING UI WIDGET 3 (Top Right) */}
+        {/* FLOATING UI WIDGET 3 */}
         <div className="hidden md:flex absolute top-48 right-[15%] animate-float-3 glass-card p-3 rounded-xl items-center gap-3 z-20 border-fuchsia-500/30">
           <div className="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse"></div>
           <div className="text-white font-bold text-xs">Content Queued: 30 Days</div>
@@ -208,9 +328,9 @@ export default function GrowthAgency() {
           </p>
 
           <div className="flex flex-col items-center animate-fade-up w-full" style={{animationDelay: '0.3s'}}>
-            <HypnoticCTA onClick={openCalendly} text="Apply For Managed Access" />
+            <HypnoticCTA onClick={openModal} text="Apply For Managed Access" />
             <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-xs md:text-sm font-bold text-slate-400">
-              <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> 15-Min Discovery Call</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> Founder-to-Founder Audit</span>
               <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> Only 5 Partners Accepted/Mo</span>
             </div>
           </div>
@@ -263,7 +383,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 3: THE BENTO ENGINE (Dense Visual Value) */}
+      {/* SEC 3: THE BENTO ENGINE */}
       <section id="engine" className="py-32 px-4 relative">
         <div className="max-w-[1200px] mx-auto text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Everything built into <br className="hidden md:block"/><span className="text-cyan-400">one architecture.</span></h2>
@@ -280,12 +400,10 @@ export default function GrowthAgency() {
             { icon: <BarChart3/>, title: "Founder Oversight", desc: "You aren't left alone with a bot. Our expert human team oversees the AI output to guarantee ROI.", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80" }
           ].map((feature, i) => (
             <div key={i} className="glass-card rounded-[2rem] relative overflow-hidden group flex flex-col">
-              {/* Image Header */}
               <div className="h-40 w-full relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent z-10"></div>
                 <img src={feature.img} alt={feature.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-110 transition-all duration-700" />
               </div>
-              {/* Content */}
               <div className="p-8 relative z-20 -mt-12 flex-1 flex flex-col">
                 <div className="w-12 h-12 bg-[#050505] rounded-xl flex items-center justify-center mb-6 border border-white/20 shadow-xl text-cyan-400">
                   {feature.icon}
@@ -307,7 +425,6 @@ export default function GrowthAgency() {
           </div>
           
           <div className="relative pl-12 md:pl-20 space-y-16 py-8">
-            {/* The Glowing Neural Line */}
             <div className="neural-line"></div>
             
             {[
@@ -317,11 +434,9 @@ export default function GrowthAgency() {
               { step: "04", title: "Automated Scaling", desc: "You go back to running your business. The AI handles the top-of-funnel work and drops qualified leads directly into your CRM." }
             ].map((s, i) => (
               <div key={i} className="relative z-10 animate-fade-up" style={{animationDelay: `${i * 0.2}s`}}>
-                {/* Node */}
                 <div className="absolute w-8 h-8 rounded-full bg-[#050505] border-[3px] border-fuchsia-500 shadow-[0_0_20px_rgba(217,70,239,0.5)] -left-[53px] md:-left-[85px] top-1 flex items-center justify-center">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                 </div>
-                {/* Content */}
                 <div className="glass-card p-8 rounded-3xl group hover:-translate-y-2">
                   <div className="text-fuchsia-400 font-black text-lg mb-2 flex items-center gap-3">
                     Step {s.step} <div className="h-px bg-white/10 flex-1"></div>
@@ -365,7 +480,7 @@ export default function GrowthAgency() {
             </div>
 
             <div className="w-full flex flex-col items-center justify-center">
-              <HypnoticCTA onClick={openCalendly} text="Apply For Managed Access" className="w-full sm:w-[80%]" />
+              <HypnoticCTA onClick={openModal} text="Apply For Managed Access" className="w-full sm:w-[80%]" />
               <p className="text-slate-500 text-xs mt-6 font-bold uppercase tracking-widest">No 6-Month Lock-ins. Cancel Anytime.</p>
             </div>
           </div>
@@ -378,7 +493,7 @@ export default function GrowthAgency() {
         <Rocket className="w-24 h-24 text-fuchsia-400 mx-auto mb-8 opacity-60 animate-pulse-glow transform -rotate-45 drop-shadow-[0_0_30px_rgba(217,70,239,0.5)]" />
         <h2 className="text-4xl md:text-7xl font-black text-white tracking-tight mb-8">Your competitors are already automating. <br/><span className="text-gradient-purple">Don't get left behind.</span></h2>
         <div className="flex justify-center mt-12">
-          <button onClick={openCalendly} className="bg-white text-slate-900 font-black text-lg px-12 py-5 rounded-[2rem] hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center gap-3">
+          <button onClick={openModal} className="bg-white text-slate-900 font-black text-lg px-12 py-5 rounded-[2rem] hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center gap-3">
             Initiate System Audit <ArrowRight className="w-5 h-5"/>
           </button>
         </div>
