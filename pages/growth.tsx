@@ -41,12 +41,18 @@ const customStyles = `
   @keyframes float-2 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(20px) rotate(-2deg); } }
   @keyframes float-3 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-15px, -15px); } }
   
+  @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  @keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+  
   .animate-fade-up { animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   .animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
   .animate-gradient-x { background-size: 200% 200%; animation: gradient-x 4s ease infinite; }
   .animate-float-1 { animation: float-1 6s ease-in-out infinite; }
   .animate-float-2 { animation: float-2 8s ease-in-out infinite; }
   .animate-float-3 { animation: float-3 7s ease-in-out infinite; }
+  
+  .animate-marquee-left { animation: marquee-left 25s linear infinite; }
+  .animate-marquee-right { animation: marquee-right 40s linear infinite; }
   
   .space-bg { background: #030305; }
   .hero-grid {
@@ -77,6 +83,19 @@ const customStyles = `
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
     animation: gradient-x 6s linear infinite;
+  }
+  
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+  }
+  .text-outline-fuchsia {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(217,70,239,0.7);
+  }
+  .text-outline-massive {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.15);
   }
   
   .neural-line {
@@ -133,7 +152,6 @@ export default function GrowthAgency() {
     e.preventDefault();
     setModalState(2); 
     
-    // The High-End Processing Illusion
     setTimeout(() => setLoadingText("Evaluating Growth Bottlenecks..."), 1200);
     setTimeout(() => setLoadingText("Audit Approved. Allocating Strategist."), 2500);
     setTimeout(() => {
@@ -187,8 +205,6 @@ export default function GrowthAgency() {
             </div>
 
             <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-              
-              {/* STATE 1: Form */}
               {modalState === 1 && (
                 <form onSubmit={handleApplicationSubmit} className="p-8 space-y-6 animate-in slide-in-from-bottom-8 fade-in duration-500">
                   <div className="text-center mb-8">
@@ -207,7 +223,6 @@ export default function GrowthAgency() {
                     </div>
                   </div>
 
-                  {/* Optional Fields Below */}
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center justify-between">
                       Website or Social Link <span className="text-slate-500 text-[10px]">(Optional)</span>
@@ -240,7 +255,6 @@ export default function GrowthAgency() {
                 </form>
               )}
 
-              {/* STATE 2: Loading */}
               {modalState === 2 && (
                 <div className="p-20 flex flex-col items-center justify-center text-center animate-in zoom-in duration-300 min-h-[400px]">
                   <Loader2 className="w-16 h-16 text-fuchsia-400 animate-spin mb-8 drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
@@ -251,7 +265,6 @@ export default function GrowthAgency() {
                 </div>
               )}
 
-              {/* STATE 3: Calendly */}
               <div className={`w-full min-h-[600px] bg-white transition-opacity duration-700 ${modalState === 3 ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
                 <div id="calendly-inline-widget" className="w-full h-[650px]"></div>
               </div>
@@ -286,7 +299,7 @@ export default function GrowthAgency() {
         </div>
       </nav>
 
-      <section className="relative pt-48 pb-20 md:pt-60 md:pb-32 px-4 text-center z-10 border-b border-white/5">
+      <section className="relative pt-48 pb-20 md:pt-60 md:pb-24 px-4 text-center z-10">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="hero-grid"></div>
           <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[700px] bg-[radial-gradient(ellipse_at_top,#a855f7_0%,#06b6d4_30%,transparent_70%)] opacity-30 animate-pulse-glow"></div>
@@ -338,7 +351,27 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      <section id="agitation" className="py-32 px-4 relative border-y border-white/5 bg-[#020203]">
+      {/* MARQUEE 1: THE AUTHORITY BAND */}
+      <div className="relative w-full overflow-hidden bg-[#0a0a0f] py-5 md:py-8 border-y border-white/10 z-20">
+        <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-[#0a0a0f] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#0a0a0f] to-transparent z-10 pointer-events-none"></div>
+        <div className="flex w-[200%] animate-marquee-left items-center">
+          {[1, 2, 3, 4].map((set) => (
+            <div key={set} className="flex items-center w-1/2 justify-around">
+              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-white tracking-widest">100% Automated</span>
+              <Sparkles className="mx-6 w-8 h-8 text-fuchsia-400 shrink-0" />
+              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-outline tracking-widest">Omnichannel</span>
+              <Zap className="mx-6 w-8 h-8 text-cyan-400 shrink-0" />
+              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-white tracking-widest">Zero Effort</span>
+              <Target className="mx-6 w-8 h-8 text-emerald-400 shrink-0" />
+              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-outline-fuchsia tracking-widest">$10M AI Tech</span>
+              <Globe className="mx-6 w-8 h-8 text-indigo-400 shrink-0" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <section id="agitation" className="py-32 px-4 relative border-b border-white/5 bg-[#020203]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(168,85,247,0.05)_0%,transparent_100%)]"></div>
         <div className="max-w-[1200px] mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">The old ways are <span className="text-red-500">inefficient.</span></h2>
@@ -481,18 +514,32 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      <section className="py-32 px-4 relative text-center border-t border-white/5 overflow-hidden bg-[#020203]">
+      <section className="pt-32 pb-16 px-4 relative text-center border-t border-white/5 overflow-hidden bg-[#020203]">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.1)_0%,transparent_60%)] pointer-events-none"></div>
         <Rocket className="w-24 h-24 text-fuchsia-400 mx-auto mb-8 opacity-60 animate-pulse-glow transform -rotate-45 drop-shadow-[0_0_30px_rgba(217,70,239,0.5)]" />
         <h2 className="text-4xl md:text-7xl font-black text-white tracking-tight mb-8">Your competitors are already automating. <br/><span className="text-gradient-purple">Don't get left behind.</span></h2>
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-12 mb-20">
           <button onClick={openModal} className="bg-white text-slate-900 font-black text-lg px-12 py-5 rounded-[2rem] hover:scale-105 transition-transform shadow-[0_0_40px_rgba(255,255,255,0.4)] flex items-center gap-3">
             Initiate System Audit <ArrowRight className="w-5 h-5"/>
           </button>
         </div>
       </section>
 
-      <footer className="border-t border-white/5 py-12 px-4 text-center bg-[#000000]">
+      {/* MARQUEE 2: THE GOD-MODE FOOTER BANNER */}
+      <div className="relative w-full overflow-hidden bg-[#020203] pb-12 pt-4 pointer-events-none select-none">
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020203] to-transparent z-10"></div>
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020203] to-transparent z-10"></div>
+        <div className="flex w-[200%] animate-marquee-right items-center opacity-30">
+          {[1, 2, 3].map((set) => (
+            <div key={set} className="flex items-center w-1/2 justify-around">
+              <span className="mx-8 text-7xl md:text-[8rem] font-black uppercase text-outline-massive tracking-tighter">Scale Infinitely</span>
+              <span className="mx-8 text-7xl md:text-[8rem] font-black uppercase text-white/10 tracking-tighter">Automate Everything</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <footer className="border-t border-white/5 py-12 px-4 text-center bg-[#000000] relative z-20">
         <div className="flex justify-center items-center gap-2 mb-6">
           <img src="/logoBoopilotGif.gif" alt="Boopilot" className="h-8 opacity-50 grayscale hover:grayscale-0 transition duration-500" />
         </div>
