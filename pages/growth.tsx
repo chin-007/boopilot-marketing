@@ -122,9 +122,7 @@ const HypnoticCTA = ({ onClick, text = "Apply For Managed Access", className = "
 export default function GrowthAgency() {
   const [isReady, setIsReady] = useState(false);
   const [modalState, setModalState] = useState(0); 
-  const [loadingText, setLoadingText] = useState("Analyzing Brand Profile...");
-
-  // Optional: We capture the data in state so we can send it to a webhook later
+  const [loadingText, setLoadingText] = useState("Initializing System Diagnostics...");
   const [formData, setFormData] = useState({ name: '', email: '', link: '', revenue: '', bottleneck: '' });
 
   useEffect(() => {
@@ -135,9 +133,9 @@ export default function GrowthAgency() {
     e.preventDefault();
     setModalState(2); 
     
-    // The Processing Illusion
-    setTimeout(() => setLoadingText("Checking Founder Availability..."), 1200);
-    setTimeout(() => setLoadingText("Application Approved."), 2500);
+    // The High-End Processing Illusion
+    setTimeout(() => setLoadingText("Evaluating Growth Bottlenecks..."), 1200);
+    setTimeout(() => setLoadingText("Audit Approved. Allocating Strategist."), 2500);
     setTimeout(() => {
       setModalState(3); 
       if (window.Calendly) {
@@ -157,7 +155,7 @@ export default function GrowthAgency() {
   const openModal = (e: React.MouseEvent) => {
     e.preventDefault();
     setModalState(1);
-    setLoadingText("Analyzing Brand Profile...");
+    setLoadingText("Initializing System Diagnostics...");
   };
 
   const closeModal = () => {
@@ -167,8 +165,8 @@ export default function GrowthAgency() {
   return (
     <div className={`min-h-screen space-bg text-white font-sans selection:bg-fuchsia-500 selection:text-white overflow-x-hidden ${!isReady ? 'opacity-0' : 'opacity-100 transition-opacity duration-1000'}`}>
       <Head>
-        <title>Boopilot Managed | The Ultimate DFY Growth Machine</title>
-        <meta name="description" content="We deploy autonomous AI growth systems for a fraction of agency costs. Done for you." />
+        <title>Boopilot Managed | Enterprise AI Growth Infrastructure</title>
+        <meta name="description" content="We deploy autonomous AI growth systems to replace outdated marketing processes. Fully managed. Done for you." />
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
         <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
       </Head>
@@ -183,7 +181,7 @@ export default function GrowthAgency() {
             <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-6 h-6 text-fuchsia-400" />
-                <span className="font-black text-lg tracking-wide">Strategic Audit Application</span>
+                <span className="font-black text-lg tracking-wide">Strategic System Audit</span>
               </div>
               <button onClick={closeModal} className="text-slate-400 hover:text-white transition"><X className="w-6 h-6" /></button>
             </div>
@@ -194,32 +192,34 @@ export default function GrowthAgency() {
               {modalState === 1 && (
                 <form onSubmit={handleApplicationSubmit} className="p-8 space-y-6 animate-in slide-in-from-bottom-8 fade-in duration-500">
                   <div className="text-center mb-8">
-                    <h3 className="text-2xl font-black text-white mb-2">Request Founder Access</h3>
-                    <p className="text-slate-400 text-sm">We only accept 5 international partners per month. Please confirm your business details to unlock the calendar.</p>
+                    <h3 className="text-2xl font-black text-white mb-2">Request an Audit</h3>
+                    <p className="text-slate-400 text-sm">Tell us a bit about your current infrastructure so our strategy team can prepare a custom growth roadmap prior to the call.</p>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Full Name</label>
+                      <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Full Name <span className="text-fuchsia-400">*</span></label>
                       <input required type="text" onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="John Doe" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Work Email</label>
+                      <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Work Email <span className="text-fuchsia-400">*</span></label>
                       <input required type="email" onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="john@company.com" />
                     </div>
                   </div>
 
+                  {/* Optional Fields Below */}
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center justify-between">
                       Website or Social Link <span className="text-slate-500 text-[10px]">(Optional)</span>
                     </label>
-                    {/* Fixed: type="text" and removed required */}
                     <input type="text" onChange={(e) => setFormData({...formData, link: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="boopilot.com or @boopilot" />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Current Monthly Revenue</label>
-                    <select required onChange={(e) => setFormData({...formData, revenue: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium appearance-none">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center justify-between">
+                      Current Monthly Revenue <span className="text-slate-500 text-[10px]">(Optional)</span>
+                    </label>
+                    <select onChange={(e) => setFormData({...formData, revenue: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium appearance-none">
                       <option value="" disabled selected>Select revenue tier...</option>
                       <option value="under_10k">Under $10,000 / mo</option>
                       <option value="10k_50k">$10,000 - $50,000 / mo</option>
@@ -228,12 +228,14 @@ export default function GrowthAgency() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Biggest Marketing Bottleneck?</label>
-                    <textarea required onChange={(e) => setFormData({...formData, bottleneck: e.target.value})} rows={3} className="w-full rounded-xl dark-input p-4 font-medium resize-none" placeholder="Content takes too long, ads aren't converting..."></textarea>
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center justify-between">
+                      Biggest Marketing Bottleneck? <span className="text-slate-500 text-[10px]">(Optional)</span>
+                    </label>
+                    <textarea onChange={(e) => setFormData({...formData, bottleneck: e.target.value})} rows={3} className="w-full rounded-xl dark-input p-4 font-medium resize-none" placeholder="Briefly describe your current challenges..."></textarea>
                   </div>
 
                   <button type="submit" className="w-full h-14 rounded-xl bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-cyan-600 text-white font-black text-lg shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all transform hover:-translate-y-1">
-                    Submit Application
+                    Initialize Audit
                   </button>
                 </form>
               )}
@@ -271,14 +273,14 @@ export default function GrowthAgency() {
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-6 text-sm font-bold text-slate-700">
               <a href="#agitation" className="hover:text-fuchsia-600 transition">The Truth</a>
-              <a href="#engine" className="hover:text-fuchsia-600 transition">The Engine</a>
+              <a href="#engine" className="hover:text-fuchsia-600 transition">The Architecture</a>
               <a href="#pipeline" className="hover:text-fuchsia-600 transition">Process</a>
             </div>
             <button 
               onClick={openModal}
               className="bg-[#050505] hover:bg-fuchsia-600 text-white font-black text-xs md:text-sm h-11 px-6 rounded-full shadow-[0_5px_15px_rgba(0,0,0,0.2)] transition-all transform hover:scale-105 flex items-center gap-2 border border-slate-800"
             >
-              <Sparkles className="w-4 h-4"/> Apply for Managed Access
+              <Sparkles className="w-4 h-4"/> Apply For Managed Access
             </button>
           </div>
         </div>
@@ -314,23 +316,23 @@ export default function GrowthAgency() {
         <div className="max-w-[1100px] mx-auto relative z-10 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card text-white text-xs md:text-sm font-bold tracking-widest uppercase mb-8 animate-fade-up shadow-[0_0_30px_rgba(168,85,247,0.3)]">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            We Don't Sell Software. We Sell Outcomes.
+            Enterprise AI Growth Infrastructure
           </div>
           
           <h1 className="text-5xl md:text-7xl lg:text-[7rem] font-black tracking-tighter mb-8 leading-[1.05] animate-fade-up drop-shadow-2xl" style={{animationDelay: '0.1s'}}>
-            Your growth team, <br />
+            Your growth engine, <br />
             <span className="text-gradient-purple">replaced by one AI.</span>
           </h1>
           
           <p className="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-medium mb-12 animate-fade-up" style={{animationDelay: '0.2s'}}>
-            Stop buying SaaS tools that create more work. Stop paying $3,000/mo to slow agencies. Hand us your brand, and our $10M AI engine will automate your content, ads, and leads. <strong className="text-white">Done for you.</strong>
+            Stop buying tools that create more work. Stop paying expensive agencies. We deploy our proprietary $10M AI infrastructure to automate your content, ads, and lead generation. <strong className="text-white">Fully managed by experts.</strong>
           </p>
 
           <div className="flex flex-col items-center animate-fade-up w-full" style={{animationDelay: '0.3s'}}>
             <HypnoticCTA onClick={openModal} text="Apply For Managed Access" />
             <div className="mt-8 flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-xs md:text-sm font-bold text-slate-400">
-              <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> Founder-to-Founder Audit</span>
-              <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> Only 5 Partners Accepted/Mo</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> 15-Min System Audit</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-400"/> Cancel Anytime</span>
             </div>
           </div>
         </div>
@@ -339,40 +341,40 @@ export default function GrowthAgency() {
       <section id="agitation" className="py-32 px-4 relative border-y border-white/5 bg-[#020203]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(168,85,247,0.05)_0%,transparent_100%)]"></div>
         <div className="max-w-[1200px] mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">The old ways are <span className="text-red-500">costing you.</span></h2>
-          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">Software requires your time. Agencies require your cash. We require neither.</p>
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">The old ways are <span className="text-red-500">inefficient.</span></h2>
+          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">Software requires your time. Agencies require massive retainers. We require neither.</p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden bg-slate-900/40 opacity-80">
-            <Badge className="bg-slate-800 text-slate-300 border-0 mb-6">The SaaS Trap</Badge>
+            <Badge className="bg-slate-800 text-slate-300 border-0 mb-6">The SaaS Reality</Badge>
             <h3 className="text-2xl font-black text-white mb-6">DIY Software Tools</h3>
             <ul className="space-y-4 text-slate-400 font-bold text-sm">
               <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-slate-500 shrink-0"/> You buy a subscription, but you still do the work.</li>
               <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-slate-500 shrink-0"/> You have to learn complex prompting and dashboards.</li>
-              <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-slate-500 shrink-0"/> You forget to post because you're busy running a business.</li>
+              <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-slate-500 shrink-0"/> Execution fails because you're busy running a business.</li>
             </ul>
           </div>
 
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden border-red-500/20 bg-red-950/10">
             <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 blur-[50px]"></div>
-            <Badge className="bg-red-500/20 text-red-400 border-0 mb-6">The Agency Trap</Badge>
-            <h3 className="text-2xl font-black text-white mb-6">Local Agencies <span className="text-red-500">($3k+/mo)</span></h3>
+            <Badge className="bg-red-500/20 text-red-400 border-0 mb-6">The Agency Reality</Badge>
+            <h3 className="text-2xl font-black text-white mb-6">Traditional Agencies</h3>
             <ul className="space-y-4 text-slate-400 font-bold text-sm">
-              <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-red-500 shrink-0"/> 30-to-60 day onboarding delays.</li>
-              <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-red-500 shrink-0"/> Junior copywriters guessing your brand voice.</li>
+              <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-red-500 shrink-0"/> 30-to-60 day onboarding delays before launch.</li>
+              <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-red-500 shrink-0"/> Junior team members guessing your brand voice.</li>
               <li className="flex items-start gap-3"><XCircle className="w-5 h-5 text-red-500 shrink-0"/> Complete lack of modern AI automation.</li>
             </ul>
           </div>
 
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden border-fuchsia-500/40 shadow-[0_0_40px_rgba(168,85,247,0.15)] transform md:-translate-y-4">
             <div className="absolute bottom-0 right-0 w-40 h-40 bg-fuchsia-500/20 blur-[60px]"></div>
-            <Badge className="bg-fuchsia-500/20 text-fuchsia-300 border-0 mb-6 animate-pulse">The AI Reality</Badge>
-            <h3 className="text-2xl font-black text-white mb-6">Boopilot Managed <span className="text-fuchsia-400">($997/mo)</span></h3>
+            <Badge className="bg-fuchsia-500/20 text-fuchsia-300 border-0 mb-6 animate-pulse">The AI Infrastructure</Badge>
+            <h3 className="text-2xl font-black text-white mb-6">Boopilot Managed</h3>
             <ul className="space-y-4 text-slate-200 font-bold text-sm relative z-10">
-              <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-fuchsia-400 shrink-0"/> Zero effort. We deploy the AI and manage the output.</li>
+              <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-fuchsia-400 shrink-0"/> Zero manual effort. We deploy the AI and manage output.</li>
               <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-fuchsia-400 shrink-0"/> Omnichannel content auto-generated and scheduled.</li>
-              <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-fuchsia-400 shrink-0"/> 24/7 AI Auto-responder capturing leads in DMs.</li>
+              <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-fuchsia-400 shrink-0"/> 24/7 AI Auto-responder capturing leads automatically.</li>
             </ul>
           </div>
         </div>
@@ -381,17 +383,17 @@ export default function GrowthAgency() {
       <section id="engine" className="py-32 px-4 relative">
         <div className="max-w-[1200px] mx-auto text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Everything built into <br className="hidden md:block"/><span className="text-cyan-400">one architecture.</span></h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">You don't need 6 different software subscriptions and an ad manager. Our tech stack replaces them all, operated by our team.</p>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">You don't need fragmented software subscriptions. Our tech stack unifies your growth, operated by our experts.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {[
-            { icon: <Video/>, title: "Omnichannel Studio", desc: "30 days of high-converting visuals and copy auto-generated and scheduled to IG, FB, LinkedIn, and X.", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&q=80" },
-            { icon: <BotMessageSquare/>, title: "24/7 AI Sales SDR", desc: "Every comment and DM receives an instant, intelligent reply that captures contact details automatically.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80" },
-            { icon: <Target/>, title: "Auto-Ad Scaler", desc: "We identify your winning organic posts and deploy them as Meta Ads to flood your pipeline with cheap leads.", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80" },
-            { icon: <Globe/>, title: "Local SEO Dominator", desc: "Daily, automated Google My Business updates and review auto-replies to rank you #1 locally.", img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500&q=80" },
-            { icon: <MousePointerClick/>, title: "Unified CRM Pipeline", desc: "Spreadsheets are dead. Every lead from every platform drops into one sleek, trackable dashboard.", img: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&q=80" },
-            { icon: <BarChart3/>, title: "Founder Oversight", desc: "You aren't left alone with a bot. Our expert human team oversees the AI output to guarantee ROI.", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80" }
+            { icon: <Video/>, title: "Omnichannel Studio", desc: "High-converting visuals and copy auto-generated and scheduled to Instagram, Facebook, LinkedIn, and X.", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&q=80" },
+            { icon: <BotMessageSquare/>, title: "24/7 AI Sales SDR", desc: "Every comment and DM receives an instant, intelligent reply that captures contact details natively.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80" },
+            { icon: <Target/>, title: "Auto-Ad Scaler", desc: "We identify your winning organic posts and deploy them as highly-targeted Meta Ads to flood your pipeline.", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80" },
+            { icon: <Globe/>, title: "Local SEO Dominator", desc: "Daily, automated Google My Business updates and intelligent review auto-replies to elevate your local rank.", img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500&q=80" },
+            { icon: <MousePointerClick/>, title: "Unified CRM Pipeline", desc: "Spreadsheets are dead. Every lead from every platform syncs into one sleek, trackable dashboard.", img: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&q=80" },
+            { icon: <BarChart3/>, title: "Expert Oversight", desc: "You aren't left alone with a bot. Our strategy team oversees the AI output to ensure absolute quality.", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&q=80" }
           ].map((feature, i) => (
             <div key={i} className="glass-card rounded-[2rem] relative overflow-hidden group flex flex-col">
               <div className="h-40 w-full relative overflow-hidden">
@@ -421,9 +423,9 @@ export default function GrowthAgency() {
             <div className="neural-line"></div>
             
             {[
-              { step: "01", title: "The Discovery Audit", desc: "A 15-minute, zero-pressure call. We analyze your current bottlenecks and map out the exact AI architecture needed." },
-              { step: "02", title: "Brand DNA Ingestion", desc: "You give us your website and past posts. The Boopilot AI consumes your brand voice, styling, and offers in seconds." },
-              { step: "03", title: "System Deployment", desc: "Our team deploys the engine. 30 days of content scheduled, auto-responders activated, and ad campaigns drafted." },
+              { step: "01", title: "The Discovery Audit", desc: "A 15-minute sync. We analyze your current bottlenecks and map out the exact AI architecture needed." },
+              { step: "02", title: "Brand DNA Ingestion", desc: "You provide your digital assets. The Boopilot AI consumes your brand voice, styling, and offers in seconds." },
+              { step: "03", title: "System Deployment", desc: "Our team deploys the engine. Content scheduled, auto-responders activated, and ad campaigns launched." },
               { step: "04", title: "Automated Scaling", desc: "You go back to running your business. The AI handles the top-of-funnel work and drops qualified leads directly into your CRM." }
             ].map((s, i) => (
               <div key={i} className="relative z-10 animate-fade-up" style={{animationDelay: `${i * 0.2}s`}}>
@@ -449,8 +451,8 @@ export default function GrowthAgency() {
           
           <div className="p-10 md:p-16 rounded-[3rem] glass-card border-[1.5px] border-fuchsia-500/40 relative flex flex-col shadow-[0_0_100px_rgba(168,85,247,0.15)]">
             <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-               <div className="bg-gradient-to-r from-red-600 to-rose-600 text-white font-black px-8 py-3 text-xs md:text-sm uppercase tracking-widest rounded-full shadow-[0_0_30px_rgba(225,29,72,0.6)] border border-red-400/50">
-                 Strictly Limited to 5 Clients / Month
+               <div className="bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white font-black px-8 py-3 text-xs md:text-sm uppercase tracking-widest rounded-full shadow-[0_0_30px_rgba(168,85,247,0.6)] border border-fuchsia-400/50">
+                 Comprehensive Managed Pipeline
                </div>
             </div>
 
