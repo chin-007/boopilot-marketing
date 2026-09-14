@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ArrowRight,
   CheckCircle2,
   Sparkles,
-  AlertTriangle,
   XCircle,
   Check,
   Zap,
@@ -38,7 +37,6 @@ const customStyles = `
   @keyframes grid-pan { 0% { background-position: 0px 0px; } 100% { background-position: 0px 60px; } }
   @keyframes btn-sheen { 0% { background-position: 250% 0; } 100% { background-position: -250% 0; } }
   
-  /* Floating Widget Animations */
   @keyframes float-1 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
   @keyframes float-2 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(20px) rotate(-2deg); } }
   @keyframes float-3 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-15px, -15px); } }
@@ -46,7 +44,6 @@ const customStyles = `
   .animate-fade-up { animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   .animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
   .animate-gradient-x { background-size: 200% 200%; animation: gradient-x 4s ease infinite; }
-  
   .animate-float-1 { animation: float-1 6s ease-in-out infinite; }
   .animate-float-2 { animation: float-2 8s ease-in-out infinite; }
   .animate-float-3 { animation: float-3 7s ease-in-out infinite; }
@@ -93,7 +90,6 @@ const customStyles = `
     animation: gradient-x 3s linear infinite;
   }
 
-  /* Form Input Styling */
   .dark-input {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.1);
@@ -108,7 +104,6 @@ const customStyles = `
   }
 `;
 
-// --- HYPNOTIC CTA BUTTON ---
 const HypnoticCTA = ({ onClick, text = "Apply For Managed Access", className = "" }: { onClick: (e:any) => void, text?: string, className?: string }) => (
   <div className={`relative cursor-pointer w-full sm:w-auto group z-20 ${className}`} onClick={onClick}>
     <div className="absolute -inset-1 bg-gradient-to-r from-fuchsia-600 to-cyan-600 rounded-[2rem] blur opacity-50 group-hover:opacity-100 transition duration-500"></div>
@@ -126,28 +121,33 @@ const HypnoticCTA = ({ onClick, text = "Apply For Managed Access", className = "
 
 export default function GrowthAgency() {
   const [isReady, setIsReady] = useState(false);
-  const [modalState, setModalState] = useState(0); // 0: Hidden, 1: Form, 2: Loading, 3: Calendar
+  const [modalState, setModalState] = useState(0); 
   const [loadingText, setLoadingText] = useState("Analyzing Brand Profile...");
+
+  // Optional: We capture the data in state so we can send it to a webhook later
+  const [formData, setFormData] = useState({ name: '', email: '', link: '', revenue: '', bottleneck: '' });
 
   useEffect(() => {
     setIsReady(true);
   }, []);
 
-  // Handle The Processing Illusion
   const handleApplicationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setModalState(2); // Start Loading
+    setModalState(2); 
     
+    // The Processing Illusion
     setTimeout(() => setLoadingText("Checking Founder Availability..."), 1200);
     setTimeout(() => setLoadingText("Application Approved."), 2500);
     setTimeout(() => {
-      setModalState(3); // Unlock Calendar
-      // Initialize Calendly inline embed once modal switches to state 3
+      setModalState(3); 
       if (window.Calendly) {
         window.Calendly.initInlineWidget({
           url: 'https://calendly.com/sharmachinmaydigichamp13/30min',
           parentElement: document.getElementById('calendly-inline-widget'),
-          prefill: {},
+          prefill: {
+            name: formData.name,
+            email: formData.email
+          },
           utm: {}
         });
       }
@@ -180,7 +180,6 @@ export default function GrowthAgency() {
           <div className="absolute inset-0" onClick={closeModal}></div>
           <div className="relative w-full max-w-2xl bg-[#0a0a0f] border border-white/10 rounded-[2rem] shadow-[0_0_80px_rgba(168,85,247,0.2)] overflow-hidden flex flex-col max-h-[90vh]">
             
-            {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-6 h-6 text-fuchsia-400" />
@@ -190,7 +189,8 @@ export default function GrowthAgency() {
             </div>
 
             <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-              {/* STATE 1: The Application Form */}
+              
+              {/* STATE 1: Form */}
               {modalState === 1 && (
                 <form onSubmit={handleApplicationSubmit} className="p-8 space-y-6 animate-in slide-in-from-bottom-8 fade-in duration-500">
                   <div className="text-center mb-8">
@@ -201,22 +201,25 @@ export default function GrowthAgency() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Full Name</label>
-                      <input required type="text" className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="John Doe" />
+                      <input required type="text" onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="John Doe" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Work Email</label>
-                      <input required type="email" className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="john@company.com" />
+                      <input required type="email" onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="john@company.com" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Website or Social Link</label>
-                    <input required type="url" className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="https://..." />
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-widest flex items-center justify-between">
+                      Website or Social Link <span className="text-slate-500 text-[10px]">(Optional)</span>
+                    </label>
+                    {/* Fixed: type="text" and removed required */}
+                    <input type="text" onChange={(e) => setFormData({...formData, link: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium" placeholder="boopilot.com or @boopilot" />
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Current Monthly Revenue</label>
-                    <select required className="w-full h-12 rounded-xl dark-input px-4 font-medium appearance-none">
+                    <select required onChange={(e) => setFormData({...formData, revenue: e.target.value})} className="w-full h-12 rounded-xl dark-input px-4 font-medium appearance-none">
                       <option value="" disabled selected>Select revenue tier...</option>
                       <option value="under_10k">Under $10,000 / mo</option>
                       <option value="10k_50k">$10,000 - $50,000 / mo</option>
@@ -226,7 +229,7 @@ export default function GrowthAgency() {
 
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-300 uppercase tracking-widest">Biggest Marketing Bottleneck?</label>
-                    <textarea required rows={3} className="w-full rounded-xl dark-input p-4 font-medium resize-none" placeholder="Content takes too long, ads aren't converting, etc..."></textarea>
+                    <textarea required onChange={(e) => setFormData({...formData, bottleneck: e.target.value})} rows={3} className="w-full rounded-xl dark-input p-4 font-medium resize-none" placeholder="Content takes too long, ads aren't converting..."></textarea>
                   </div>
 
                   <button type="submit" className="w-full h-14 rounded-xl bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-cyan-600 text-white font-black text-lg shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all transform hover:-translate-y-1">
@@ -235,7 +238,7 @@ export default function GrowthAgency() {
                 </form>
               )}
 
-              {/* STATE 2: The Processing Illusion */}
+              {/* STATE 2: Loading */}
               {modalState === 2 && (
                 <div className="p-20 flex flex-col items-center justify-center text-center animate-in zoom-in duration-300 min-h-[400px]">
                   <Loader2 className="w-16 h-16 text-fuchsia-400 animate-spin mb-8 drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
@@ -246,7 +249,7 @@ export default function GrowthAgency() {
                 </div>
               )}
 
-              {/* STATE 3: The Restricted Calendar Unlocked */}
+              {/* STATE 3: Calendly */}
               <div className={`w-full min-h-[600px] bg-white transition-opacity duration-700 ${modalState === 3 ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
                 <div id="calendly-inline-widget" className="w-full h-[650px]"></div>
               </div>
@@ -255,7 +258,7 @@ export default function GrowthAgency() {
         </div>
       )}
 
-      {/* SEC 0: PREMIUM #FDFDFD NAVBAR (Light Theme Contrast) */}
+      {/* --- STANDARD LANDING PAGE BELOW --- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FDFDFD] shadow-[0_10px_40px_rgba(0,0,0,0.3)] border-b border-slate-200">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
@@ -281,14 +284,12 @@ export default function GrowthAgency() {
         </div>
       </nav>
 
-      {/* SEC 1: THE GOD-MODE HERO WITH FLOATING WIDGETS */}
       <section className="relative pt-48 pb-20 md:pt-60 md:pb-32 px-4 text-center z-10 border-b border-white/5">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="hero-grid"></div>
           <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[700px] bg-[radial-gradient(ellipse_at_top,#a855f7_0%,#06b6d4_30%,transparent_70%)] opacity-30 animate-pulse-glow"></div>
         </div>
 
-        {/* FLOATING UI WIDGET 1 */}
         <div className="hidden md:flex absolute top-32 left-[10%] animate-float-1 glass-card p-4 rounded-2xl items-center gap-4 z-20 border-emerald-500/30">
           <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><TrendingUp className="w-5 h-5 text-emerald-400"/></div>
           <div className="text-left">
@@ -297,7 +298,6 @@ export default function GrowthAgency() {
           </div>
         </div>
 
-        {/* FLOATING UI WIDGET 2 */}
         <div className="hidden md:flex absolute bottom-32 right-[10%] animate-float-2 glass-card p-4 rounded-2xl items-center gap-4 z-20 border-cyan-500/30">
           <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center"><Users className="w-5 h-5 text-cyan-400"/></div>
           <div className="text-left">
@@ -306,7 +306,6 @@ export default function GrowthAgency() {
           </div>
         </div>
 
-        {/* FLOATING UI WIDGET 3 */}
         <div className="hidden md:flex absolute top-48 right-[15%] animate-float-3 glass-card p-3 rounded-xl items-center gap-3 z-20 border-fuchsia-500/30">
           <div className="w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse"></div>
           <div className="text-white font-bold text-xs">Content Queued: 30 Days</div>
@@ -337,7 +336,6 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 2: THE AGITATION (The DFY Pivot) */}
       <section id="agitation" className="py-32 px-4 relative border-y border-white/5 bg-[#020203]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(168,85,247,0.05)_0%,transparent_100%)]"></div>
         <div className="max-w-[1200px] mx-auto text-center mb-16">
@@ -346,7 +344,6 @@ export default function GrowthAgency() {
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {/* SaaS Trap */}
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden bg-slate-900/40 opacity-80">
             <Badge className="bg-slate-800 text-slate-300 border-0 mb-6">The SaaS Trap</Badge>
             <h3 className="text-2xl font-black text-white mb-6">DIY Software Tools</h3>
@@ -357,7 +354,6 @@ export default function GrowthAgency() {
             </ul>
           </div>
 
-          {/* Agency Scam */}
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden border-red-500/20 bg-red-950/10">
             <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 blur-[50px]"></div>
             <Badge className="bg-red-500/20 text-red-400 border-0 mb-6">The Agency Trap</Badge>
@@ -369,7 +365,6 @@ export default function GrowthAgency() {
             </ul>
           </div>
 
-          {/* Boopilot Solution */}
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden border-fuchsia-500/40 shadow-[0_0_40px_rgba(168,85,247,0.15)] transform md:-translate-y-4">
             <div className="absolute bottom-0 right-0 w-40 h-40 bg-fuchsia-500/20 blur-[60px]"></div>
             <Badge className="bg-fuchsia-500/20 text-fuchsia-300 border-0 mb-6 animate-pulse">The AI Reality</Badge>
@@ -383,7 +378,6 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 3: THE BENTO ENGINE */}
       <section id="engine" className="py-32 px-4 relative">
         <div className="max-w-[1200px] mx-auto text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight mb-6">Everything built into <br className="hidden md:block"/><span className="text-cyan-400">one architecture.</span></h2>
@@ -416,7 +410,6 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 4: ANIMATED VELOCITY PIPELINE */}
       <section id="pipeline" className="py-24 px-4 bg-[#050505] relative border-y border-white/5">
         <div className="max-w-[800px] mx-auto">
           <div className="text-center mb-16">
@@ -450,7 +443,6 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 5: THE IRONCLAD OFFER */}
       <section id="pricing" className="py-32 px-4 relative overflow-hidden">
         <div className="max-w-[900px] mx-auto relative z-20">
           <div className="absolute -inset-4 bg-gradient-to-r from-fuchsia-600 to-cyan-600 blur-[100px] opacity-20 rounded-[4rem] animate-pulse-glow pointer-events-none"></div>
@@ -487,7 +479,6 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 6: THE ULTIMATUM */}
       <section className="py-32 px-4 relative text-center border-t border-white/5 overflow-hidden bg-[#020203]">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.1)_0%,transparent_60%)] pointer-events-none"></div>
         <Rocket className="w-24 h-24 text-fuchsia-400 mx-auto mb-8 opacity-60 animate-pulse-glow transform -rotate-45 drop-shadow-[0_0_30px_rgba(217,70,239,0.5)]" />
@@ -499,7 +490,6 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="border-t border-white/5 py-12 px-4 text-center bg-[#000000]">
         <div className="flex justify-center items-center gap-2 mb-6">
           <img src="/logoBoopilotGif.gif" alt="Boopilot" className="h-8 opacity-50 grayscale hover:grayscale-0 transition duration-500" />
