@@ -15,7 +15,8 @@ import {
   Rocket,
   Video,
   MousePointerClick,
-  Users
+  Users,
+  BarChart3
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
@@ -171,7 +172,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* SEC 2: THE WALL OF OUTPUT (Not formats, Business Outcomes) */}
+      {/* SEC 2: THE WALL OF OUTPUT */}
       <section id="proof" className="py-20 relative overflow-hidden bg-[#020203]">
         <div className="text-center mb-12 relative z-10">
           <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Not just formats. <span className="text-fuchsia-400">Outcomes.</span></h2>
