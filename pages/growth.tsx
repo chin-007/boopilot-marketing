@@ -19,7 +19,8 @@ import {
   TrendingUp,
   ShieldCheck,
   Loader2,
-  X
+  X,
+  Activity
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
@@ -41,8 +42,9 @@ const customStyles = `
   @keyframes float-2 { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(20px) rotate(-2deg); } }
   @keyframes float-3 { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-15px, -15px); } }
   
-  @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  @keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+  /* FLawless Mobile-Responsive Marquee Animations */
+  @keyframes scroll-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes scroll-x-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
   
   .animate-fade-up { animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   .animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
@@ -51,8 +53,9 @@ const customStyles = `
   .animate-float-2 { animation: float-2 8s ease-in-out infinite; }
   .animate-float-3 { animation: float-3 7s ease-in-out infinite; }
   
-  .animate-marquee-left { animation: marquee-left 25s linear infinite; }
-  .animate-marquee-right { animation: marquee-right 40s linear infinite; }
+  /* Marquee Tracks */
+  .marquee-track { display: flex; width: max-content; animation: scroll-x 35s linear infinite; }
+  .marquee-track-reverse { display: flex; width: max-content; animation: scroll-x-reverse 45s linear infinite; }
   
   .space-bg { background: #030305; }
   .hero-grid {
@@ -85,17 +88,19 @@ const customStyles = `
     animation: gradient-x 6s linear infinite;
   }
   
+  /* Text Strokes for Ultra-Premium Typography */
   .text-outline {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+    -webkit-text-stroke: 1px rgba(255,255,255,0.5);
   }
   .text-outline-fuchsia {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(217,70,239,0.7);
+    -webkit-text-stroke: 1px rgba(217,70,239,0.8);
   }
   .text-outline-massive {
     color: transparent;
-    -webkit-text-stroke: 2px rgba(255,255,255,0.15);
+    -webkit-text-stroke: 2px rgba(255,255,255,0.4);
+    text-shadow: 0 0 40px rgba(255,255,255,0.1);
   }
   
   .neural-line {
@@ -151,7 +156,6 @@ export default function GrowthAgency() {
   const handleApplicationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setModalState(2); 
-    
     setTimeout(() => setLoadingText("Evaluating Growth Bottlenecks..."), 1200);
     setTimeout(() => setLoadingText("Audit Approved. Allocating Strategist."), 2500);
     setTimeout(() => {
@@ -180,6 +184,26 @@ export default function GrowthAgency() {
     setModalState(0);
   };
 
+  // Repeated Arrays for flawless Marquees
+  const heroMarqueeItems1 = [
+    { text: "100% Automated", outline: false, icon: <Sparkles className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-fuchsia-400" /> },
+    { text: "Omnichannel Sync", outline: true, icon: <Zap className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-cyan-400" /> },
+    { text: "Zero Manual Effort", outline: false, icon: <Target className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-emerald-400" /> },
+    { text: "$10M AI Tech Stack", outline: true, color: "fuchsia", icon: <Globe className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-indigo-400" /> }
+  ];
+
+  const heroMarqueeItems2 = [
+    { text: "24/7 AI Sales Rep", outline: true, icon: <BotMessageSquare className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-fuchsia-400" /> },
+    { text: "Live CRM Pipeline", outline: false, icon: <Users className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-cyan-400" /> },
+    { text: "Auto-Ad Scaler", outline: true, color: "fuchsia", icon: <TrendingUp className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-emerald-400" /> },
+    { text: "Predictable ROAS", outline: false, icon: <BarChart3 className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-indigo-400" /> }
+  ];
+
+  const footerMarqueeItems = [
+    { text: "Scale Infinitely", outline: true },
+    { text: "Automate Everything", outline: false }
+  ];
+
   return (
     <div className={`min-h-screen space-bg text-white font-sans selection:bg-fuchsia-500 selection:text-white overflow-x-hidden ${!isReady ? 'opacity-0' : 'opacity-100 transition-opacity duration-1000'}`}>
       <Head>
@@ -195,7 +219,6 @@ export default function GrowthAgency() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
           <div className="absolute inset-0" onClick={closeModal}></div>
           <div className="relative w-full max-w-2xl bg-[#0a0a0f] border border-white/10 rounded-[2rem] shadow-[0_0_80px_rgba(168,85,247,0.2)] overflow-hidden flex flex-col max-h-[90vh]">
-            
             <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-6 h-6 text-fuchsia-400" />
@@ -273,7 +296,7 @@ export default function GrowthAgency() {
         </div>
       )}
 
-      {/* --- STANDARD LANDING PAGE BELOW --- */}
+      {/* --- PREMIUM #FDFDFD NAVBAR --- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FDFDFD] shadow-[0_10px_40px_rgba(0,0,0,0.3)] border-b border-slate-200">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
@@ -299,7 +322,8 @@ export default function GrowthAgency() {
         </div>
       </nav>
 
-      <section className="relative pt-48 pb-20 md:pt-60 md:pb-24 px-4 text-center z-10">
+      {/* --- HERO SECTION --- */}
+      <section className="relative pt-48 pb-20 md:pt-60 md:pb-24 px-4 text-center z-10 border-b border-white/5">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="hero-grid"></div>
           <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[700px] bg-[radial-gradient(ellipse_at_top,#a855f7_0%,#06b6d4_30%,transparent_70%)] opacity-30 animate-pulse-glow"></div>
@@ -351,21 +375,47 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* MARQUEE 1: THE AUTHORITY BAND */}
-      <div className="relative w-full overflow-hidden bg-[#0a0a0f] py-5 md:py-8 border-y border-white/10 z-20">
-        <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-[#0a0a0f] to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#0a0a0f] to-transparent z-10 pointer-events-none"></div>
-        <div className="flex w-[200%] animate-marquee-left items-center">
+      {/* --- HERO MARQUEE (Ultra-Premium Dual Data Stream) --- */}
+      <div className="relative w-full overflow-hidden bg-gradient-to-b from-[#0a0a0f] to-[#020203] py-6 md:py-10 border-b border-white/5 z-20 shadow-[inset_0_20px_40px_rgba(0,0,0,0.5)]">
+        <div className="absolute top-4 left-6 z-30 hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-500/20 border border-fuchsia-500/50">
+          <Activity className="w-3 h-3 text-fuchsia-400 animate-pulse"/>
+          <span className="text-[9px] font-bold text-fuchsia-300 uppercase tracking-widest">Live System Feed</span>
+        </div>
+        
+        {/* Left Fade */}
+        <div className="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-[#0a0a0f] to-transparent z-20 pointer-events-none"></div>
+        {/* Right Fade */}
+        <div className="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-[#020203] to-transparent z-20 pointer-events-none"></div>
+        
+        {/* Track 1: Moving Left */}
+        <div className="marquee-track items-center mb-4 md:mb-6">
+          {/* Duplicating the array 4 times ensures it never breaks even on 4k screens */}
           {[1, 2, 3, 4].map((set) => (
-            <div key={set} className="flex items-center w-1/2 justify-around">
-              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-white tracking-widest">100% Automated</span>
-              <Sparkles className="mx-6 w-8 h-8 text-fuchsia-400 shrink-0" />
-              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-outline tracking-widest">Omnichannel</span>
-              <Zap className="mx-6 w-8 h-8 text-cyan-400 shrink-0" />
-              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-white tracking-widest">Zero Effort</span>
-              <Target className="mx-6 w-8 h-8 text-emerald-400 shrink-0" />
-              <span className="mx-6 text-2xl md:text-4xl font-black uppercase text-outline-fuchsia tracking-widest">$10M AI Tech</span>
-              <Globe className="mx-6 w-8 h-8 text-indigo-400 shrink-0" />
+            <div key={set} className="flex items-center">
+              {heroMarqueeItems1.map((item, idx) => (
+                <div key={idx} className="flex items-center">
+                  <span className={`text-xl md:text-4xl font-black uppercase tracking-widest whitespace-nowrap ${item.outline ? (item.color === 'fuchsia' ? 'text-outline-fuchsia' : 'text-outline') : 'text-white'}`}>
+                    {item.text}
+                  </span>
+                  {item.icon}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Track 2: Moving Right */}
+        <div className="marquee-track-reverse items-center">
+          {[1, 2, 3, 4].map((set) => (
+            <div key={set} className="flex items-center">
+              {heroMarqueeItems2.map((item, idx) => (
+                <div key={idx} className="flex items-center">
+                  <span className={`text-xl md:text-4xl font-black uppercase tracking-widest whitespace-nowrap ${item.outline ? (item.color === 'fuchsia' ? 'text-outline-fuchsia' : 'text-outline') : 'text-white'}`}>
+                    {item.text}
+                  </span>
+                  {item.icon}
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -484,7 +534,7 @@ export default function GrowthAgency() {
           
           <div className="p-10 md:p-16 rounded-[3rem] glass-card border-[1.5px] border-fuchsia-500/40 relative flex flex-col shadow-[0_0_100px_rgba(168,85,247,0.15)]">
             <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-               <div className="bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white font-black px-8 py-3 text-xs md:text-sm uppercase tracking-widest rounded-full shadow-[0_0_30px_rgba(168,85,247,0.6)] border border-fuchsia-400/50">
+               <div className="bg-gradient-to-r from-fuchsia-600 to-indigo-600 text-white font-black px-8 py-3 text-xs md:text-sm uppercase tracking-widest rounded-full shadow-[0_0_30px_rgba(168,85,247,0.6)] border border-fuchsia-400/50 whitespace-nowrap">
                  Comprehensive Managed Pipeline
                </div>
             </div>
@@ -525,15 +575,15 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* MARQUEE 2: THE GOD-MODE FOOTER BANNER */}
-      <div className="relative w-full overflow-hidden bg-[#020203] pb-12 pt-4 pointer-events-none select-none">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020203] to-transparent z-10"></div>
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020203] to-transparent z-10"></div>
-        <div className="flex w-[200%] animate-marquee-right items-center opacity-30">
-          {[1, 2, 3].map((set) => (
-            <div key={set} className="flex items-center w-1/2 justify-around">
-              <span className="mx-8 text-7xl md:text-[8rem] font-black uppercase text-outline-massive tracking-tighter">Scale Infinitely</span>
-              <span className="mx-8 text-7xl md:text-[8rem] font-black uppercase text-white/10 tracking-tighter">Automate Everything</span>
+      {/* --- FOOTER MARQUEE (God-Mode Scale) --- */}
+      <div className="relative w-full overflow-hidden bg-[#020203] pb-16 pt-8 pointer-events-none select-none z-20">
+        <div className="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-[#020203] to-transparent z-30"></div>
+        <div className="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-[#020203] to-transparent z-30"></div>
+        <div className="marquee-track-reverse items-center opacity-80">
+          {[1, 2, 3, 4].map((set) => (
+            <div key={set} className="flex items-center">
+              <span className="mx-6 md:mx-12 text-5xl md:text-[10rem] font-black uppercase text-outline-massive tracking-tighter whitespace-nowrap">Scale Infinitely</span>
+              <span className="mx-6 md:mx-12 text-5xl md:text-[10rem] font-black uppercase text-white/30 tracking-tighter whitespace-nowrap drop-shadow-2xl">Automate Everything</span>
             </div>
           ))}
         </div>
