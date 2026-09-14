@@ -13,11 +13,11 @@ import {
   Globe,
   Clock,
   Rocket,
-  TrendingUp,
   Video,
   MousePointerClick,
   Users
 } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
 
 declare global {
   interface Window {
