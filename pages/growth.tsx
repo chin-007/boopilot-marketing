@@ -19,8 +19,7 @@ import {
   TrendingUp,
   ShieldCheck,
   Loader2,
-  X,
-  Activity
+  X
 } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
@@ -95,12 +94,28 @@ const customStyles = `
   }
   .text-outline-fuchsia {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(217,70,239,0.8);
+    -webkit-text-stroke: 1px rgba(217,70,239,0.9);
+    text-shadow: 0 0 20px rgba(217,70,239,0.3);
   }
   .text-outline-massive {
     color: transparent;
-    -webkit-text-stroke: 2px rgba(255,255,255,0.4);
+    -webkit-text-stroke: 2px rgba(255,255,255,0.5);
     text-shadow: 0 0 40px rgba(255,255,255,0.1);
+  }
+  .text-glow-white {
+    color: white;
+    text-shadow: 0 0 30px rgba(255,255,255,0.5);
+  }
+
+  /* Slanted Neon Dividers for Marquee */
+  .slash-divider {
+    width: 4px;
+    height: 35px;
+    border-radius: 4px;
+    transform: rotate(15deg);
+  }
+  @media (min-width: 768px) {
+    .slash-divider { height: 50px; width: 6px; }
   }
   
   .neural-line {
@@ -156,6 +171,8 @@ export default function GrowthAgency() {
   const handleApplicationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setModalState(2); 
+    
+    // The High-End Processing Illusion
     setTimeout(() => setLoadingText("Evaluating Growth Bottlenecks..."), 1200);
     setTimeout(() => setLoadingText("Audit Approved. Allocating Strategist."), 2500);
     setTimeout(() => {
@@ -184,26 +201,6 @@ export default function GrowthAgency() {
     setModalState(0);
   };
 
-  // Repeated Arrays for flawless Marquees
-  const heroMarqueeItems1 = [
-    { text: "100% Automated", outline: false, icon: <Sparkles className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-fuchsia-400" /> },
-    { text: "Omnichannel Sync", outline: true, icon: <Zap className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-cyan-400" /> },
-    { text: "Zero Manual Effort", outline: false, icon: <Target className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-emerald-400" /> },
-    { text: "$10M AI Tech Stack", outline: true, color: "fuchsia", icon: <Globe className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-indigo-400" /> }
-  ];
-
-  const heroMarqueeItems2 = [
-    { text: "24/7 AI Sales Rep", outline: true, icon: <BotMessageSquare className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-fuchsia-400" /> },
-    { text: "Live CRM Pipeline", outline: false, icon: <Users className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-cyan-400" /> },
-    { text: "Auto-Ad Scaler", outline: true, color: "fuchsia", icon: <TrendingUp className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-emerald-400" /> },
-    { text: "Predictable ROAS", outline: false, icon: <BarChart3 className="mx-4 md:mx-6 w-5 h-5 md:w-8 md:h-8 text-indigo-400" /> }
-  ];
-
-  const footerMarqueeItems = [
-    { text: "Scale Infinitely", outline: true },
-    { text: "Automate Everything", outline: false }
-  ];
-
   return (
     <div className={`min-h-screen space-bg text-white font-sans selection:bg-fuchsia-500 selection:text-white overflow-x-hidden ${!isReady ? 'opacity-0' : 'opacity-100 transition-opacity duration-1000'}`}>
       <Head>
@@ -219,6 +216,7 @@ export default function GrowthAgency() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
           <div className="absolute inset-0" onClick={closeModal}></div>
           <div className="relative w-full max-w-2xl bg-[#0a0a0f] border border-white/10 rounded-[2rem] shadow-[0_0_80px_rgba(168,85,247,0.2)] overflow-hidden flex flex-col max-h-[90vh]">
+            
             <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-6 h-6 text-fuchsia-400" />
@@ -228,6 +226,7 @@ export default function GrowthAgency() {
             </div>
 
             <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
+              {/* STATE 1: Form */}
               {modalState === 1 && (
                 <form onSubmit={handleApplicationSubmit} className="p-8 space-y-6 animate-in slide-in-from-bottom-8 fade-in duration-500">
                   <div className="text-center mb-8">
@@ -278,6 +277,7 @@ export default function GrowthAgency() {
                 </form>
               )}
 
+              {/* STATE 2: Loading */}
               {modalState === 2 && (
                 <div className="p-20 flex flex-col items-center justify-center text-center animate-in zoom-in duration-300 min-h-[400px]">
                   <Loader2 className="w-16 h-16 text-fuchsia-400 animate-spin mb-8 drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
@@ -288,6 +288,7 @@ export default function GrowthAgency() {
                 </div>
               )}
 
+              {/* STATE 3: Calendly */}
               <div className={`w-full min-h-[600px] bg-white transition-opacity duration-700 ${modalState === 3 ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
                 <div id="calendly-inline-widget" className="w-full h-[650px]"></div>
               </div>
@@ -323,7 +324,7 @@ export default function GrowthAgency() {
       </nav>
 
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-48 pb-20 md:pt-60 md:pb-24 px-4 text-center z-10 border-b border-white/5">
+      <section className="relative pt-48 pb-16 md:pt-60 md:pb-24 px-4 text-center z-10">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="hero-grid"></div>
           <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1200px] h-[700px] bg-[radial-gradient(ellipse_at_top,#a855f7_0%,#06b6d4_30%,transparent_70%)] opacity-30 animate-pulse-glow"></div>
@@ -375,47 +376,72 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* --- HERO MARQUEE (Ultra-Premium Dual Data Stream) --- */}
-      <div className="relative w-full overflow-hidden bg-gradient-to-b from-[#0a0a0f] to-[#020203] py-6 md:py-10 border-b border-white/5 z-20 shadow-[inset_0_20px_40px_rgba(0,0,0,0.5)]">
-        <div className="absolute top-4 left-6 z-30 hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-500/20 border border-fuchsia-500/50">
-          <Activity className="w-3 h-3 text-fuchsia-400 animate-pulse"/>
-          <span className="text-[9px] font-bold text-fuchsia-300 uppercase tracking-widest">Live System Feed</span>
+      {/* --- MONSTER BEAST HERO MARQUEE (Ultra-Premium Data Stream) --- */}
+      <div className="relative w-full overflow-hidden bg-[#020203] py-10 md:py-16 border-y border-white/10 z-20 shadow-[0_0_100px_rgba(168,85,247,0.05)]">
+        {/* Cinematic Background Orbs */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[300px] h-[300px] bg-fuchsia-600/20 blur-[100px] pointer-events-none mix-blend-screen"></div>
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-600/20 blur-[100px] pointer-events-none mix-blend-screen"></div>
+
+        {/* Live System Badge */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-40 flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+          <div className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </div>
+          <span className="text-[9px] md:text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Neural Pipeline Active</span>
         </div>
-        
-        {/* Left Fade */}
-        <div className="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-[#0a0a0f] to-transparent z-20 pointer-events-none"></div>
-        {/* Right Fade */}
-        <div className="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-[#020203] to-transparent z-20 pointer-events-none"></div>
-        
-        {/* Track 1: Moving Left */}
-        <div className="marquee-track items-center mb-4 md:mb-6">
-          {/* Duplicating the array 4 times ensures it never breaks even on 4k screens */}
+
+        {/* Edge Fades */}
+        <div className="absolute inset-y-0 left-0 w-16 md:w-64 bg-gradient-to-r from-[#020203] to-transparent z-30 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-16 md:w-64 bg-gradient-to-l from-[#020203] to-transparent z-30 pointer-events-none"></div>
+
+        {/* Track 1: Massive Impact Typography */}
+        <div className="marquee-track items-center mb-6 md:mb-10 mt-6 md:mt-0">
           {[1, 2, 3, 4].map((set) => (
             <div key={set} className="flex items-center">
-              {heroMarqueeItems1.map((item, idx) => (
-                <div key={idx} className="flex items-center">
-                  <span className={`text-xl md:text-4xl font-black uppercase tracking-widest whitespace-nowrap ${item.outline ? (item.color === 'fuchsia' ? 'text-outline-fuchsia' : 'text-outline') : 'text-white'}`}>
-                    {item.text}
-                  </span>
-                  {item.icon}
-                </div>
-              ))}
+              <span className="mx-6 md:mx-10 text-4xl md:text-5xl font-black uppercase tracking-tighter text-glow-white whitespace-nowrap">
+                100% Autonomous
+              </span>
+              <div className="slash-divider bg-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.8)] mx-4 md:mx-8"></div>
+              
+              <span className="mx-6 md:mx-10 text-4xl md:text-5xl font-black uppercase tracking-tighter text-outline-fuchsia whitespace-nowrap">
+                Omnichannel Sync
+              </span>
+              <div className="slash-divider bg-fuchsia-500 shadow-[0_0_20px_rgba(217,70,239,0.8)] mx-4 md:mx-8"></div>
+              
+              <span className="mx-6 md:mx-10 text-4xl md:text-5xl font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400 whitespace-nowrap animate-gradient-x">
+                Zero Manual Effort
+              </span>
+              <div className="slash-divider bg-indigo-500 shadow-[0_0_20px_rgba(99,102,241,0.8)] mx-4 md:mx-8"></div>
+              
+              <span className="mx-6 md:mx-10 text-4xl md:text-5xl font-black uppercase tracking-tighter text-outline whitespace-nowrap">
+                $10M AI Architecture
+              </span>
+              <div className="slash-divider bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)] mx-4 md:mx-8"></div>
             </div>
           ))}
         </div>
 
-        {/* Track 2: Moving Right */}
-        <div className="marquee-track-reverse items-center">
-          {[1, 2, 3, 4].map((set) => (
+        {/* Track 2: Monospace Data Stream */}
+        <div className="marquee-track-reverse items-center opacity-80">
+          {[1, 2, 3, 4, 5].map((set) => (
             <div key={set} className="flex items-center">
-              {heroMarqueeItems2.map((item, idx) => (
-                <div key={idx} className="flex items-center">
-                  <span className={`text-xl md:text-4xl font-black uppercase tracking-widest whitespace-nowrap ${item.outline ? (item.color === 'fuchsia' ? 'text-outline-fuchsia' : 'text-outline') : 'text-white'}`}>
-                    {item.text}
-                  </span>
-                  {item.icon}
-                </div>
-              ))}
+               <span className="mx-6 md:mx-10 text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-emerald-400 whitespace-nowrap flex items-center gap-3">
+                 <Target className="w-4 h-4"/> [SYS.OPTIMIZING_ROAS]
+               </span>
+               <span className="text-white/20">•</span>
+               <span className="mx-6 md:mx-10 text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-fuchsia-400 whitespace-nowrap flex items-center gap-3">
+                 <BotMessageSquare className="w-4 h-4"/> &lt;SDR_AUTO_REPLY_ENGAGED /&gt;
+               </span>
+               <span className="text-white/20">•</span>
+               <span className="mx-6 md:mx-10 text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-cyan-400 whitespace-nowrap flex items-center gap-3">
+                 <Video className="w-4 h-4"/> GENERATING_VIRAL_ASSETS...
+               </span>
+               <span className="text-white/20">•</span>
+               <span className="mx-6 md:mx-10 text-xs md:text-sm font-mono font-bold uppercase tracking-widest text-indigo-400 whitespace-nowrap flex items-center gap-3">
+                 <Users className="w-4 h-4"/> PIPELINE_SYNC::ONLINE
+               </span>
+               <span className="text-white/20">•</span>
             </div>
           ))}
         </div>
@@ -575,15 +601,15 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* --- FOOTER MARQUEE (God-Mode Scale) --- */}
-      <div className="relative w-full overflow-hidden bg-[#020203] pb-16 pt-8 pointer-events-none select-none z-20">
-        <div className="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-[#020203] to-transparent z-30"></div>
-        <div className="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-[#020203] to-transparent z-30"></div>
-        <div className="marquee-track-reverse items-center opacity-80">
+      {/* --- MARQUEE 2: THE GOD-MODE FOOTER BANNER --- */}
+      <div className="relative w-full overflow-hidden bg-[#020203] pb-16 pt-8 pointer-events-none select-none z-20 border-t border-white/10 shadow-[0_-40px_100px_rgba(168,85,247,0.1)]">
+        <div className="absolute inset-y-0 left-0 w-16 md:w-64 bg-gradient-to-r from-[#020203] to-transparent z-30"></div>
+        <div className="absolute inset-y-0 right-0 w-16 md:w-64 bg-gradient-to-l from-[#020203] to-transparent z-30"></div>
+        <div className="marquee-track-reverse items-center opacity-100">
           {[1, 2, 3, 4].map((set) => (
             <div key={set} className="flex items-center">
-              <span className="mx-6 md:mx-12 text-5xl md:text-[10rem] font-black uppercase text-outline-massive tracking-tighter whitespace-nowrap">Scale Infinitely</span>
-              <span className="mx-6 md:mx-12 text-5xl md:text-[10rem] font-black uppercase text-white/30 tracking-tighter whitespace-nowrap drop-shadow-2xl">Automate Everything</span>
+              <span className="mx-6 md:mx-12 text-6xl md:text-[12rem] font-black uppercase text-outline-massive tracking-tighter whitespace-nowrap">Scale Infinitely</span>
+              <span className="mx-6 md:mx-12 text-6xl md:text-[12rem] font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-300 to-white tracking-tighter whitespace-nowrap drop-shadow-[0_0_40px_rgba(255,255,255,0.3)]">Automate Everything</span>
             </div>
           ))}
         </div>
