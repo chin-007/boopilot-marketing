@@ -115,24 +115,12 @@ const customStyles = `
     transform: rotate(15deg);
   }
   @media (min-width: 768px) { .slash-divider { height: 40px; width: 5px; } }
-  
-  .neural-line {
-    position: absolute;
-    left: 20px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, rgba(168,85,247,0.1), rgba(6,182,212,0.8), rgba(168,85,247,0.1));
-    background-size: 100% 200%;
-    animation: gradient-x 3s linear infinite;
-  }
-  @media (min-width: 768px) { .neural-line { left: 23px; } }
 
   .dark-input {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
     color: white;
-    font-size: 16px; /* Prevents iOS Safari Zoom */
+    font-size: 16px; 
     transition: all 0.3s ease;
   }
   .dark-input:focus {
@@ -216,13 +204,12 @@ export default function GrowthAgency() {
         <HypnoticCTA onClick={openModal} text="Apply For Managed Access" className="w-full" />
       </div>
 
-      {/* --- MULTI-STEP APPLICATION MODAL (APP SHEET ON MOBILE) --- */}
+      {/* --- MULTI-STEP APPLICATION MODAL --- */}
       {modalState > 0 && (
         <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
           <div className="absolute inset-0" onClick={closeModal}></div>
           <div className="relative w-full max-w-2xl bg-[#0a0a0f] border-t md:border border-white/10 rounded-t-[2rem] md:rounded-[2rem] shadow-[0_0_80px_rgba(168,85,247,0.2)] overflow-hidden flex flex-col h-[90dvh] md:max-h-[90vh] animate-in slide-in-from-bottom-full md:slide-in-from-bottom-8 duration-500">
             
-            {/* Modal Header */}
             <div className="flex justify-between items-center p-5 md:p-6 border-b border-white/10 bg-white/5 shrink-0">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-fuchsia-400" />
@@ -232,8 +219,6 @@ export default function GrowthAgency() {
             </div>
 
             <div className="overflow-y-auto w-full flex-1 scrollbar-hide pb-10 md:pb-0">
-              
-              {/* STATE 1: Form */}
               {modalState === 1 && (
                 <form onSubmit={handleApplicationSubmit} className="p-5 md:p-8 space-y-5 md:space-y-6">
                   <div className="text-center mb-6 md:mb-8">
@@ -284,7 +269,6 @@ export default function GrowthAgency() {
                 </form>
               )}
 
-              {/* STATE 2: Loading */}
               {modalState === 2 && (
                 <div className="p-10 md:p-20 flex flex-col items-center justify-center text-center animate-in zoom-in duration-300 min-h-[60dvh] md:min-h-[400px]">
                   <Loader2 className="w-12 h-12 md:w-16 md:h-16 text-fuchsia-400 animate-spin mb-6 md:mb-8 drop-shadow-[0_0_15px_rgba(217,70,239,0.5)]" />
@@ -295,7 +279,6 @@ export default function GrowthAgency() {
                 </div>
               )}
 
-              {/* STATE 3: Calendly */}
               <div className={`w-full h-full min-h-[80dvh] bg-white transition-opacity duration-700 ${modalState === 3 ? 'opacity-100 block' : 'opacity-0 hidden'}`}>
                 <div id="calendly-inline-widget" className="w-full h-full min-h-[650px]"></div>
               </div>
@@ -337,7 +320,6 @@ export default function GrowthAgency() {
           <div className="absolute top-[-5%] left-1/2 -translate-x-1/2 w-[800px] md:w-[1200px] h-[500px] md:h-[700px] bg-[radial-gradient(ellipse_at_top,#a855f7_0%,#06b6d4_30%,transparent_70%)] opacity-30 animate-pulse-glow"></div>
         </div>
 
-        {/* Floating Widgets (Hidden on small mobile to prevent clutter) */}
         <div className="hidden lg:flex absolute top-32 left-[10%] animate-float-1 glass-card p-4 rounded-2xl items-center gap-4 z-20 border-emerald-500/30">
           <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center"><TrendingUp className="w-5 h-5 text-emerald-400"/></div>
           <div className="text-left">
@@ -371,7 +353,6 @@ export default function GrowthAgency() {
 
           <div className="flex flex-col items-center animate-fade-up w-full px-4" style={{animationDelay: '0.3s'}}>
             <HypnoticCTA onClick={openModal} text="Apply For Managed Access" className="hidden md:block" />
-            {/* Mobile inline button triggers modal too, in addition to sticky footer */}
             <button onClick={openModal} className="md:hidden w-full h-14 rounded-2xl bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-black text-base shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center justify-center gap-2">
               Apply For Managed Access <ArrowRight className="w-4 h-4"/>
             </button>
@@ -383,7 +364,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* --- MONSTER BEAST HERO MARQUEE (Ultra-Premium Data Stream) --- */}
+      {/* --- HERO MARQUEE --- */}
       <div className="relative w-full overflow-hidden bg-[#020203] py-8 md:py-12 border-y border-white/10 z-20 shadow-[0_0_100px_rgba(168,85,247,0.05)]">
         <div className="absolute top-1/2 left-1/2 md:left-1/4 -translate-x-1/2 md:translate-x-0 -translate-y-1/2 w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-fuchsia-600/20 blur-[60px] md:blur-[100px] pointer-events-none mix-blend-screen"></div>
         <div className="hidden md:block absolute top-1/2 right-1/4 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-600/20 blur-[100px] pointer-events-none mix-blend-screen"></div>
@@ -446,6 +427,7 @@ export default function GrowthAgency() {
         </div>
       </div>
 
+      {/* --- AGITATION --- */}
       <section id="agitation" className="py-20 md:py-32 px-4 relative border-b border-white/5 bg-[#020203]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(168,85,247,0.05)_0%,transparent_100%)]"></div>
         <div className="max-w-[1200px] mx-auto text-center mb-12 md:mb-16">
@@ -488,7 +470,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* REPLACED UNSPLASH IMAGES WITH HIGH-END ABSTRACT TECH TEXTURES */}
+      {/* --- ENGINE (BENTO) --- */}
       <section id="engine" className="py-20 md:py-32 px-4 relative">
         <div className="max-w-[1200px] mx-auto text-center mb-12 md:mb-20">
           <h2 className="text-3xl md:text-6xl font-black text-white tracking-tight mb-4 md:mb-6">Everything built into <br className="hidden md:block"/><span className="text-cyan-400">one architecture.</span></h2>
@@ -521,6 +503,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
+      {/* --- ALIGNMENT FIXED PIPELINE --- */}
       <section id="pipeline" className="py-20 md:py-24 px-4 bg-[#050505] relative border-y border-white/5">
         <div className="max-w-[800px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
@@ -528,8 +511,10 @@ export default function GrowthAgency() {
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">From audit to live pipeline <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-cyan-400">in 48 hours.</span></h2>
           </div>
           
-          <div className="relative pl-10 md:pl-20 space-y-12 md:space-y-16 py-4 md:py-8">
-            <div className="neural-line"></div>
+          <div className="relative space-y-8 md:space-y-12 py-4">
+            
+            {/* The Bulletproof Timeline - Explicit absolute positioning */}
+            <div className="absolute left-[28px] md:left-[40px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-fuchsia-500/10 via-cyan-400/80 to-fuchsia-500/10 bg-[length:100%_200%] animate-pulse z-0"></div>
             
             {[
               { step: "01", title: "The Discovery Audit", desc: "A 15-minute sync. We analyze your current bottlenecks and map out the exact AI architecture needed." },
@@ -537,11 +522,14 @@ export default function GrowthAgency() {
               { step: "03", title: "System Deployment", desc: "Our team deploys the engine. Content scheduled, auto-responders activated, and ad campaigns launched." },
               { step: "04", title: "Automated Scaling", desc: "You go back to running your business. The AI handles the top-of-funnel work and drops qualified leads directly into your CRM." }
             ].map((s, i) => (
-              <div key={i} className="relative z-10 animate-fade-up" style={{animationDelay: `${i * 0.2}s`}}>
-                <div className="absolute w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#050505] border-[2px] md:border-[3px] border-fuchsia-500 shadow-[0_0_20px_rgba(217,70,239,0.5)] -left-[45px] md:-left-[85px] top-1 flex items-center justify-center">
+              <div key={i} className="relative z-10 animate-fade-up pl-[64px] md:pl-[96px]" style={{animationDelay: `${i * 0.2}s`}}>
+                
+                {/* Node - Mathematically centered on the line */}
+                <div className="absolute left-[28px] md:left-[40px] top-8 -translate-x-1/2 -translate-y-1/2 w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#050505] border-[2px] md:border-[3px] border-fuchsia-500 shadow-[0_0_20px_rgba(217,70,239,0.5)] flex items-center justify-center">
                   <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                 </div>
-                <div className="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl group hover:-translate-y-2 transition-transform">
+                
+                <div className="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl group hover:-translate-y-1 transition-transform">
                   <div className="text-fuchsia-400 font-black text-sm md:text-lg mb-2 flex items-center gap-3">
                     Step {s.step} <div className="h-px bg-white/10 flex-1"></div>
                   </div>
@@ -554,6 +542,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
+      {/* --- PRICING --- */}
       <section id="pricing" className="py-20 md:py-32 px-4 relative overflow-hidden">
         <div className="max-w-[900px] mx-auto relative z-20">
           <div className="absolute -inset-2 md:-inset-4 bg-gradient-to-r from-fuchsia-600 to-cyan-600 blur-[60px] md:blur-[100px] opacity-20 rounded-[4rem] animate-pulse-glow pointer-events-none"></div>
@@ -604,7 +593,7 @@ export default function GrowthAgency() {
         </div>
       </section>
 
-      {/* --- MARQUEE 2: THE GOD-MODE FOOTER BANNER --- */}
+      {/* --- FOOTER MARQUEE --- */}
       <div className="relative w-full overflow-hidden bg-[#020203] pb-10 md:pb-16 pt-6 md:pt-8 pointer-events-none select-none z-20 border-t border-white/10 shadow-[0_-40px_100px_rgba(168,85,247,0.1)]">
         <div className="absolute inset-y-0 left-0 w-8 md:w-64 bg-gradient-to-r from-[#020203] to-transparent z-30"></div>
         <div className="absolute inset-y-0 right-0 w-8 md:w-64 bg-gradient-to-l from-[#020203] to-transparent z-30"></div>
